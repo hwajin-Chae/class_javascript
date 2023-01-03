@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3_1_conditional</title>
+
+  <script>
+    // 조건문
+    // 조건 만족 여부(true/false)에 따라 코드 수행 여부가 결정됨
+    // 예1) 유효성 검사(입력한 데이터가 올바른 값이면 넣고, 아니면 오류 메세지 출력)
+    // 예2) (백엔드) 로그인 정보가 맞으면 성공 처리, 아니면 실패 처리
+
+    // if문
+    // 조건식을 만족하면 실행 코드를 수행
+
+    // if (-조건식-) {
+    //   -실행 코드-
+    // }    만족하지 않으면 다음 식으로 넘어감
+
+    // const walkAmount = prompt('당신의 하루 걷는 양은 몇 보 인가요?', 0);
+    // if (walkAmount >= 10000) {
+    //   document.write('매우 좋은 습관을 지니고 계시군요!!');
+    // }
+
+    // const callAmount = prompt('당신의 하루 통화량은 몇 분인가요?', 0);
+    // if (callAmount >= 60) {
+    //   document.write('통화량이 많습니다.');
+    // }
+    // if (callAmount <= 60) {
+    //   document.write('통화량이 적습니다.');
+    // }
+
+    // 조건식을 만들 때
+    // :: 사이 범위 확인하기
+    // age(나이)가 14세 이상~90세 이하 사이에 속하는지 확인하는 if문 작성
+    // "이상과 이하"는 age 범위에 14나 90이 포함된다는 의미
+
+    // const age = 50;
+    // if (90 >= age >= 14) {   ---> 안됨...
+    // }
+    // if (age >= 14 && age <= 90) {
+
+    // };
+
+
+    // :: 바깥 범위 확인하기
+    // age(나이)가 14세 이상~90세 이하 사이에 속하지 않는지를 확인하는 if문 작성
+    // (NOT ! 연산자를 사용한 것과 사용하지 않은 것 2가지)
+    // if (!(age >= 14 && age <= 90)) {
+
+    // };
+    // if (age < 14 || age > 90) {  // 논리 연산자 주의 !
+
+    // }
+
+    // 조건식에 논리형 데이터(t/f)가 아닌 다른 타입의 데이터가 입력되었을 때
+    // 0, null, ''(빈 문자), undefined, NaN은 --> false 값
+    // 그 밖의 값은 true
+    // if (6) {
+    //   document.write('true로 인식', '<br><br>');
+    // }
+
+    // (응용) 정상적인 값이 들어왔는지 판단
+    // const userName = prompt('방문자의 이름은?', '');
+    // if (userName) {
+    //   document.write(userName + "님 반갑습니다! 방문을 환영합니다.");
+    // }
+    
+
+    // ---------- if ~ else 문
+    // 조건식을 만족하면 if문 실행, 만족하지 않으면 else문 실행
+    // 조건식의 결과에 따라 두가지 결과 중 하나를 실행시킬 때 사용
+    // 예) 60점 이상일때는 합격, 미만일때는 불합격
+
+    // const num = prompt('당신이 좋아하는 숫자는?', 0);
+    // if ( num % 2 === 0 ) {
+    //   document.write(" 짝수입니다.");
+    // } else {
+    //   document.write("홀수입니다.");
+    // }
+
+
+    // window.confirm('메세지'): 확인 상자, 사용자가 무언가를 확인하거나 수락하기를 원하는 경우에 사용
+    // 확인을 누르면 true, 취소를 누르면 false를 반환
+    // const result = confirm('정말로 회원 탈퇴를 하시겠습니까?');
+    // if (result) {
+    //   document.write('탈퇴 처리되었습니다.');
+    // } else {
+    //   document.write('탈퇴 취소되었습니다.');
+    // }
+
+    // ---------- if ~ else if 문
+    // 여러 if문 조건식 중 만족하는 것을 찾아 실행, 만족하는 게 없으면 else문 실행
+    // 조건식의 결과에 따라 여러가지 결과 중 하나를 실행시킬 때 사용
+
+    // const month = prompt('현재는 몇 월입니까?', 0);
+    // if (9 <= month && month <= 11) {  // 9 ~ 11, 가독성 ~!
+    //   document.write('독서의 계절 가을이네요!');
+    // } else if (6 <= month && month <= 8) {  // 6 ~ 8
+    //   document.write('여행가기 좋은 여름이네요!');
+    // } else if (3 <= month && month <= 5) {  // 3 ~ 5
+    //   document.write('햇살 가득한 봄이네요!');
+    // } else if (12 == month || 1 <= month && month <=2 ) {  
+    //   document.write('스키의 계절 겨울이네요!');
+    // } else {
+    //   document.write('1~12 숫자 입력하세요!')
+    // }
+
+
+    // ---------- 중첩 if문
+    // if (조건식) {
+    //   if (조건식2) {
+    //     실행코드
+    //   }
+    //   실행코드
+    // }
+
+    // const id = 'goni';
+    // const pw = '1234';
+    // const userId = prompt('아이디는?', '');
+
+    // // 아이디가 일치하지 않으면 굳이 비밀번호 검사 할 필요 없음
+    if (id === userId) {
+      const userPw = prompt('비밀번호는?', '');
+
+      if (pw === userPw) {
+        document.write(userId + '님 반갑습니다!');
+      } else {
+        alert('비밀번호가 일치하지 않습니다.');
+        location.reload(); // 새로고침
+      }
+    } else {
+      alert('아이디가 일치하지 않습니다.');
+      location.reload(); // 새로고침
+    }
+
+
+    // ---------- 선택문
+    // 일치하는 경우의 값이 있을 경우 선택하여 실행 코드를 수행
+    // 일치하는 값이 없을 경우 default문(Optional) 실행
+
+    // if문과 차이점
+    // 1) if문과 달리 case문에 비교 연산과 같은 복잡한 식을 못 씀
+    // 2) break;가 없으면 밑에 있는 코드까지 쭉 실행됨
+    // 3) 내부 동작이 다름
+    // 정리: 조건의 수가 많고 케이스가 값으로 명확히 구분지어질 때 switch문을 사용 (가독성 +++)
+
+    // switch문
+    // const 변수 = 값;
+    // switch (변수) {
+    //   case 값1:
+    //     코드1;
+    //     break;
+    //   case 값2:
+    //     코드2;
+    //     break;
+    //   case 값3:
+    //     코드3;
+    //     break;
+    //   default:
+    //     break;
+    // }
+
+    // const site = prompt('네이버, 다음, 구글 중 즐겨 사용하는 검색 사이트는?', '');
+    // let url;
+
+    // switch (site) {
+    //   case '네이버':
+    //     url = 'www.naver.com';
+    //     break;
+    //   case '다음':
+    //     url = 'www.daum.net';
+    //     break;
+    //   case '구글':
+    //     url = 'www.google.com';
+    //     break;
+    //   default:
+    //     alert('보기 중에 없는 사이트입니다.');
+    //     break;
+    // }
+    // if (url) location.href = 'https://' + url;
+    // url 정보가 바뀌면서 이동됨
+
+  </script>
+
+</head>
+<body>
+
+  
+</body>
+</html>

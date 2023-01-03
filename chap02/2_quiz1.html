@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>1</title>
 </head>
 <body>
 <script>
@@ -14,11 +14,19 @@
 
   // 1번 풀이
 
-  let number1 = prompt('숫자를 입력하세요.');
-  let number2 = prompt('숫자를 입력하세요.');
+  // const number1 = prompt('숫자를 입력하세요.');
+  // const number2 = prompt('숫자를 입력하세요.');
 
-  result = number1 + number2;
-  document.write(result, '<br>');
+  // result = number1 + number2;
+  // document.write(result, '<br>');
+
+  // ---
+  
+  const a = Number(prompt('덧셈할 첫번째 숫자를 입력하세요.', 1));
+  const b = Number(prompt('덧셈할 두번째 숫자를 입력하세요.', 2));
+  document.write(a + b);
+
+  // Number 안 붙이면 문자로 인식. Number로 묶어서 숫자인 걸 알려줘야 함
 
   
 </script>

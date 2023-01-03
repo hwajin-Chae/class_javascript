@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3_2_loop</title>
+
+  <style>
+    * { margin: 0;
+    }
+    .red {
+      color: #f00;
+    }
+    .blue {
+      color: #00f;
+    }
+  </style>
+
+  <script>
+    // 반복문
+    // 조건식을 만족하는 동안 실행 코드를 반복하여 수행
+    // 예) 데이터를 반복해서 처리해야 될 때
+    // 100개의 데이터를 100번 쓰는 것보다 코드 한 줄로 100번 반복이 나음
+
+    // --------- while문
+    // while (1. 3. 5. ... 조건식) {
+    //   2. 4. 6. ... 실행코드  ; false가 될 때 까지
+    // }
+
+    //  안녕하세요 1~10까지 10회 출력
+    let i = 1;
+    while (i <= 10) {
+      document.write('안녕하세요' + i, '<br>');
+      i++;
+    }
+    document.write('=====<br>');
+
+    // 1~30까지의 숫자중 2의 배수이면서 3의 배수인 숫자만 출력
+    i = 1;
+    while (i <= 30) {
+      if ( i % 2 === 0 && i % 3 === 0) {
+      document.write(i, '<br>');
+      }
+      i++;
+    }
+    document.write('=====<br>');
+
+
+    // 20~10까지 숫자 중 짝수일 경우 파란색, 홀수일 경우 빨간색으로 출력
+    i = 20;
+    while (i >= 10) {
+      if ( i % 2 === 0) {
+        document.write('<p class="blue">' + i + '</p>')
+      } else {   // 또 쓸 필요XX, 어차피 짝/홀이니까
+        document.write('<p class="red">' + i + '</p>')
+      }
+      i--;
+    }
+    document.write('=====<br>');
+
+
+    // --------- do while문
+    // while문과 차이점: 무조건 한 번은 코드를 실행하고 조건식 검사
+    // do {
+    //   1. 실행코드;
+    // } while (2. 조건식);
+
+    i = 5;
+    do {
+      document.write('hello!<br>');
+      i++;
+    } while (i < 3);  // 조건이 맞지 않은데도, 무조건 한 번 실행
+    document.write('=====<br>');
+
+    // --------- for문(제일 많이 사용)
+    // for (1.초기화식; 2. 5. 8.조건식;(true이면) 4. 7.증감식(조건식으로 감)) {
+    //   3. 6. 9. ...(조건식이 true이면)실행코드
+    // }
+
+    // 반복 1~10까지 10회 출력
+    for (let i = 1; i <= 10; i++) {    // i++ = i = i + 1
+      document.write('반복' + i, '<br>');
+    }
+    document.write('=====<br>');
+
+    // 1~100까지의 합
+    let sum = 0;
+    for (let i = 1; i <= 100; i++) {
+      // sum = sum + i;
+      sum += i;
+    }
+    document.write('1~100까지의 합: ' + sum, '<br>');
+    document.write('=====<br>');
+
+
+    // --------- break문
+    // switch문 또는 반복문을 빠져나갈 때 사용
+
+    // 1~10까지 반복 중, i의 값이 6일 때 강제 종료
+    for (let i = 1; i <= 10; i++) {
+      // if (i === 6) {
+      //   break;
+      // }
+      if (i === 6) break;  // 한 줄까지는 줄여 쓸 수도 있음
+      document.write(i, '<br>');
+    }
+    document.write('=====<br>');
+
+
+    // --------- continue문
+    // 반복문에서만 사용 가능
+    // 뒤에 오는 코드는 무시하고 다음 반복을 계속 할 때 사용
+
+    // 1~10까지 홀수만 출력(=2의 배수일때는 출력을 건너뛰기)
+    // for (let i = 1; i <= 10; i++) {
+    //   // if (i % 2 === 0) {
+    //   //   continue;
+    //   // }
+    //   if (i % 2 === 0) continue;
+    //   document.write(i, '<br>');   // continue를 만나면 다음으로 넘어감
+    // }
+    // document.write('=====<br>');
+
+
+    // --------- 중첩 for문
+    // for문 안에 for문 사용
+    // for (초기화식; 조건식; 증감식) {  // 바깥 for문
+    //   for (초기화식; 조건식; 증감식) {  // 안쪽 for문
+    //     실행코드
+    //   }
+    // }
+    // 이중 for문까지는 많이 쓰나, 삼중 for문으로 가면 performance가 떨어짐
+    // 바깥 100번 + 안쪽 100번 = 10000번을 처리해야함..
+
+    // 1행 1열 ~ 3행 2열까지 출력
+    // for (let i = 1; i <= 3; i++) {
+    //   for (let j = 1; j <= 2; j++) {
+    //   document.write(i + '행' + j + '열');
+    //   }
+    //   document.write('<br>');
+    // }
+    // document.write('=====<br>');
+
+
+    // 구구단 출력
+    for (let i = 2; i <= 9; i++) {
+      document.write('**** ' + i + '단 ****', '<br>');
+      for (let j = 1; j <= 9; j++) {
+        document.write(i + 'X' + j + '=' + (i * j));
+        document.write('<br>');
+      }
+      document.write('<br>');
+    }
+
+
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
