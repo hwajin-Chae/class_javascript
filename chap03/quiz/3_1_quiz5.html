@@ -16,11 +16,37 @@
     const num2 = Number(prompt('정수2 입력', '0'));
     const num3 = Number(prompt('정수3 입력', '0'));
 
-    const total = num1 + num2 + num3;
-    document.write(total, '<br>');
+    // const num3 = +prompt('정수3 입력', '0');
+    // + 만 붙여주면, Number 의 역할을 함
 
-    const avg = (num1 + num2 + num3)/3;
-    document.write(avg);
+
+    let max = num1;
+    let min = num1;
+
+    // const total = num1 + num2 + num3;
+    // document.write(total, '<br>');
+
+    // const avg = (num1 + num2 + num3)/3;
+    // document.write(avg);
+
+    // 최대값
+    if (max < num2) max = num2;
+    if (max < num3) max = num3;
+
+
+    // 최소값
+    if (min > num2) min = num2;
+    if (min > num3) min = num3;
+
+    const sum = num1 + num2 + num3;
+    const avg = sum / 3;
+
+    document.write(max, '<br>');
+    document.write(min, '<br>');
+    document.write(sum, '<br>');
+    document.write(avg, '<br>');
+
+
 
 
   </script>

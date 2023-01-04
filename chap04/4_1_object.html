@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script>
+    // 객체
+    // 여러 데이터들의 묶음
+    // 속성(데이터, Property)과 기능(동작, Method)을 가지는 모든 것
+    // 객체 안에 객체도 가능함
+    // 예:
+    // 1) 폰 - 속성(색상, 크기), 기능(전화 걸기, 문자 보내기)
+    // 2) TV - 속성(인치, 화질), 기능(켜다, 끄다, 볼륨 업/다운, 음소거)
+
+    document.write('데이터'); // document 객체의 write 메소드(기능)
+    document.write(Math.PI); // Math 객체의 PI 속성
+
+    // 자바스크립트 객체의 종류
+    // 1. 사용자 정의 객체
+    // 2. 내장 객체
+    // 3. 브라우저 객체(BOM; brower object model)
+    // 4. 문서 객체(DOM; document object model)
+
+    // 1. 사용자 정의 객체 만들기
+    // 1) Object 내장 객체 이용
+    // 변수 = new 객체 생성 함수();
+    // new : 객체 생성 키워드
+    // 생성힌 객체를 사용하기 위해 변수에 저장
+
+    // 변수 = new Object();
+    const tv = new Object(); // 객체 생성 함수(생성자)는 대문자로 시작!
+    tv.color = 'white' // color 속성 추가, 객체 접근은 도트 연산자(.)를 이용
+    tv.price = 300000; // price 속성 추가
+    tv.info = function () {  // info 함수 등록 => 메소드
+      document.write('tv 색상: ' + this.color, '<br>')  // this: 객체 자기 자신을 가리킴
+      document.write('tv 가격: ' + this.price, '<br>')
+    }
+    document.write('<h1>tv 객체 메소드 호출</h1>');
+    tv.info();
+
+    // 2) 리터럴 방식을 이용
+    const car = {
+      // 객체의 속성 = 키 : 밸류
+      color: 'black',
+      price: 50000000,
+      info: function () {  // info 함수 등록 => 메소드
+        document.write('car 색상: ' + this.color, '<br>');  // this: 객체 자기 자신을 가리킴
+        document.write('car 가격: ' + this.price, '<br>');
+      }
+    };
+    document.write('<h1>car 객체 메소드 호출</h1>');
+    car.info();
+    // 객체 데이터는 정보들의 묶음이라 생각하면 됨
+
+    // 객체 속성 추가, 수정, 삭제
+    car.company = 'Hyundai';  // company 속성 추가
+    document.write(`제조사: ${car.company}<br>`);
+    car.company = 'Kia';  // company 속성 수정
+    document.write(`제조사: ${car.company}<br>`);
+    delete car.company;  // company 속성 삭제하는 키워드
+    document.write(`제조사: ${car.company}<br>`);
+
+    // 대괄호 표기법으로 속성 값 얻기
+    document.write('<h1>대괄호 표기법</h1>');
+    const user = {
+      name: 'John',
+      age: 30
+    };
+
+    document.write(`name: ${user.name}<br>`);
+    document.write(`age: ${user['age']}<br>`);
+    // 방식이 두가지임
+    // 대괄호 안에 변수나 복잡한 표현식 사용 가능
+
+    // 키 값을 변수로 받아 접근하기
+    // const key = prompt('사용자의 어떤 정보를 얻고 싶으신가요?', 'name');
+    // document.write(user[key]);
+
+    // (참고) const 객체?
+    const testUser = {
+      name: 'goni'
+    };
+    // 아래 코드는 문제가 없을까요?
+    testUser.name = 'peter';
+    // 문제가 없음. const는 testUSer에만 걸리는 거...
+    // const에 넣어두면, testUser에는 고유한 주소가 생기는데, 그 주소만 안바뀌면 안에 내용이 어떠하든 상관이 없어
+    // ----> const는 한번이라도 값을 할당한 변수가 변경되는 걸 막음
+    // 변수 testUser는 객체 참조 값을 저장하고 있는데,
+    // const는 이 값이 변경되는 걸 막는 것이지,
+    // 객체의 내용(속성)을 변경하는 건 막지 않음
+    testUser = 123; // error
+
+
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

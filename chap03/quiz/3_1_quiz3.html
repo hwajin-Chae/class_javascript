@@ -14,28 +14,44 @@
     // (점수가 0미만 100초과이면 "에러입니다." 라는 alert창을 띄우세요.)
 
     // 풀이3
+    // const grade = Number(prompt('학년?', '1'));
+    // const score = Number(prompt('점수?', '0'));
+
+    // if (1<= grade && grade <=3) {
+    //   if (60 <= score) {
+    //     document.write('합격');
+    //   } else {
+    //     document.write('불합격');
+    //   }
+    //   if (score < 0 || 100 < score) {
+    //   document.write('에러입니다.');
+    //   }
+    // } else if ( !(1<= grade && grade <=3) ) {
+    //   if (70 <= score) {
+    //     document.write('합격');
+    //   } else {
+    //     document.write('불합격');
+    //   }
+    //   if (score < 0 || 100 < score) {
+    //   document.write('에러입니다.');
+    //   }
+    // }
+
     const grade = Number(prompt('학년?', '1'));
     const score = Number(prompt('점수?', '0'));
+    let msg = '에러입니다';
 
-    if (1<= grade && grade <=3) {
-      if (60 <= score) {
-        document.write('합격');
+    if (score < 0 || score > 100) {
+      alert(msg);
+    } else {  // 점수가 0이상 100이하일때 (정상입력)
+      if ((1<= grade && grade <=3 && score >= 60) ||
+          (4<= grade && grade <=6 && score >= 70)) {
+        msg = '합격';
       } else {
-        document.write('불합격');
-      }
-      if (score < 0 || 100 < score) {
-      document.write('에러입니다.');
-      }
-    } else if ( !(1<= grade && grade <=3) ) {
-      if (70 <= score) {
-        document.write('합격');
-      } else {
-        document.write('불합격');
-      }
-      if (score < 0 || 100 < score) {
-      document.write('에러입니다.');
+        msg = '불합격';
       }
     }
+    document.write(msg);
 
 
   </script>

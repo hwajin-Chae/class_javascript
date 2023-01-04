@@ -26,11 +26,25 @@
     if (height < 150) {
       const result = confirm('부모님과 함께 방문했나요?');
       if (result) {
-        document.write('좋은 시간 보내렴');
+        document.write('좋은 시간 보내렴~');
       } else {
-        document.write('어른 모시고 다시 오렴');
+        document.write('어른 모시고 다시 오렴~');
       }
     }
+
+    if (height < 150) {
+      const withMom confirm('부모님과 함께 방문했나요?');
+      // 1
+      // if (withMom) {
+      //   msg = '좋은 시간 보내렴~';
+      // } else {
+      //   msg = '어른 모시고 다시 오렴~';
+      // }
+
+      // 2 삼항연산자
+      msg = withMom ? '좋은 시간 보내렴~' : '어른 모시고 다시 오렴~';
+    }
+    document.write(msg);
     
   </script>
 </head>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>7</title>
   <script>
     // 문제7
     // 이중 for문을 이용해 
@@ -12,15 +12,27 @@
 
     // 풀이7
     let num = 1;
-
-    for (let num = 1; num <= 5; num++) {
-      for (let i = 1; i <= 5; i++) {
-        document.write(num + '행' + i + '열');
+    let html = '<table border="1">';
+    
+    for (let i = 1; i <= 5; i++) {
+      html += '<tr>';
+      for (let j = 1; j <= 5; j++) {
+        html += '<td>' + i + '</td>';
+        i++;
       }
-      document.write('<br>');
+      html += '</tr>';
     }
+    html +='</table>';
+    document.write(html);
 
-    let html = "<table border='1'>";
+
+    // let html = '<table border="1">';
+    // html    += '  <tr>';
+    // html    += '    <td>1</td><td>2</td><td>3</td>';
+    // html    += '  </tr>';
+    // html    += '</table>';
+    // document.write(html);
+
       
 
   </script>

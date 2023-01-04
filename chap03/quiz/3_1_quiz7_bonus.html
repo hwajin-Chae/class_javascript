@@ -24,12 +24,43 @@
 
     // 풀이6
 
-    const price1 = '1300'
-    const price2 = '1500'
-    const price3 = '3000'
+    // const price1 = '1300'
+    // const price2 = '1500'
+    // const price3 = '3000'
 
-    if (money === prompt) {
+    // if (money === prompt) {
 
+    // }
+
+
+    if (money <= 0 || isNaN(money)) { // 정상적인 돈 값이 입력되지 않았을 때. isNaN -> 숫자가 아닌지 확인(문자가 true, 숫자는 false)
+      alert('돈을 다시 넣어주세요.');
+      location.reload();
+    } else {  // 정상 범위
+      const snack = prompt('어떤 과자를 뽑으실 건가요? (허니버터, 칸쵸, 프링글스)', '');
+
+      switch (snack) {
+        case '허니버터':
+          change = money - 1300;
+          break;
+        case '칸쵸':
+          change = money - 1500;
+          break;
+        case '프링글스':
+          change = money - 3000;
+          break;
+        default:  // 없는 종류의 과자가 입력 되었을 때
+          alert('해당 과자가 없습니다.');
+          location.reload();
+          break;
+      }
+
+      if (change < 0) {  // 돈이 부족할 때
+        alert('돈이 모자랍니다.');
+        location.reload();
+      }
+
+      document.write(`${snack} 나왔습니다! 거스름돈은 ${change}원 입니다.`);
     }
     
   </script>
