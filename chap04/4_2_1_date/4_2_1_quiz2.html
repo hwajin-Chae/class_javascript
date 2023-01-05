@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    // 문제2
+    // 요일 보여주기
+
+    // 날짜를 입력하면 'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT' 형식으로 요일을 보여주도록 만들어보세요.
+    // 2가지 방법으로 각각 구현해 볼 것!
+    // 1) 배열을 이용한 방법
+    // 2) 조건문(if 또는 switch)을 이용한 방법
+
+    // 예시:
+    // let date = new Date(2023, 0, 5);  // 2023년 1월 5일
+    // "THU"가 출력되어야 합니다.
+    
+    
+    // 풀이2
+
+    let date = new Date(2023, 10, 5);
+    const day = date.getDay();
+
+    document.write(`요일 ${day}<br>`);
+    let code;
+
+    switch (day) {
+      case 0:
+        code = 'SUN';
+        break;
+      case 1:
+        code = 'MON';
+        break;
+      case 2:
+        code = 'TUE';
+        break;
+      case 3:
+        code = 'WED';
+        break;
+      case 4:
+        code = 'THU';
+        break;
+      case 5:
+        code = 'FRI';
+        break;
+      case 6:
+        code = 'SAT';
+        break;
+    }
+    document.write('요일 ' + code, '<br>');
+
+
+    // 배열로 풀기
+    let date2 = new Date(2023, 2, 5);
+    let dayList = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+    document.write(dayList[date2.getDay()]);
+    
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
