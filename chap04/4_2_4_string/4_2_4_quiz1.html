@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    // 문제1
+    // 사용자로부터 주민등록번호를 입력받아서(예: 861015-1234567), 
+    // 주민등록번호의 뒷 7자리를 이용하여 성별이 남자인지 여자인지 판단하고 결과를 출력하세요.
+    // 1 또는 3 이면 '남자입니다.'
+    // 2 또는 4 이면 '여자입니다.'
+
+    const ssn = prompt('주민등록번호를 입력하세요.');
+
+    const num = ssn.split('-');
+    console.log(num[1]);
+    const gender = (num[1].charAt(0));
+    console.log(typeof gender)
+    861015-1234567
+
+    if (gender === '1' || gender === '3') {
+      document.write('남자입니다.')
+    } else {
+      document.write('여자입니다.')
+    }
+
+
+
+
+    // 풀이1
+    
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

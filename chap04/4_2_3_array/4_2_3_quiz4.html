@@ -10,17 +10,41 @@
     // 배열에서 최대값, 최소값 구하기
     const points = [40, 100, 1, 5, 25, 10];
 
-    points.sort();
-    console.log(points);
-
-    const min = points.shift();
-    console.log(min);
-
-    const max = points.pop();
-    console.log(max);
+    
 
     // 풀이3
-  
+
+    points.sort(function(a, b) {
+        return a - b
+      },
+      );
+      console.log(points);
+
+      const min = points.shift();
+      console.log(min);
+
+      const max = points.pop();
+      console.log(max);
+
+
+      // 222 
+
+      let max2 = points[0];
+      let min2 = points[0];
+      for (const el of points) {
+        if (max2 < el) max = el;
+        if (min2 > el) min = el;
+
+        max2 = Math.max(max, el);
+        min2 = Math.min(min, el);
+      }
+      document.write(`최대값: ${max2} <br>`)
+      document.write(`최소값: ${min2} <br>`)
+
+      // 참고 - spread 연산자
+      document.write(`최대값: ${Math.max(...pointes)} <br>`);
+      document.write(`최소값: ${Math.min(...points)} <br>`);
+
   </script>
 </head>
 <body>

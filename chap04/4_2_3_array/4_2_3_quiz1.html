@@ -19,9 +19,20 @@
 
     // 풀이1
 
-    for (let i = 0; i < originArr.length; i++) {
-      document.write(originArr[i]);
-    }
+    const copyArr1 = originArr.slice(0, 4);
+    const copyArr2 = originArr.slice(0);
+    const copyArr3 = originArr.slice();
+    const copyArr4 = originArr.concat();
+    console.log(copyArr1);
+    console.log(copyArr2);
+    console.log(copyArr3);
+    console.log(copyArr4);
+
+    // 참고 - ES6차 spread 연산자
+    const copyArr5 = [...originArr];
+    console.log(copyArr5);
+
+
     
   </script>
 </head>

@@ -15,7 +15,16 @@
     // 풀이3
     const disliked = prompt('싫어하는 과일은?');
 
+    const dislikedIndex = fruits.indexOf(disliked);
+    console.log(dislikedIndex);
     
+    if (dislikedIndex !== -1) {
+      fruits.splice(dislikedIndex, 1);
+    } else {
+      alert('제거할 과일이 없습니다.');
+    }
+
+    console.log(fruits);
     
   </script>
 </head>
