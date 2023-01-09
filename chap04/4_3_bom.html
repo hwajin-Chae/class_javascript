@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script>
+    // 3. 브라우저 객체(BOM)
+    // 브라우저에 내장된 객체를 가리킴
+    // 0) window는 브라우저 객체의 최상위 객체
+
+    // 아래와 같은 하위 객체를 계층 구조로 포함
+    // 1) screen: 스크린 관련된 정보 제공(화면 정보)
+    // 2) location: 현재 브라우저의 위치 정보(URL 정보)
+    // 3) history: 브라우저에서 웹 서핑을 할 때 기록들을 가짐
+    // 4) navigator: OS, 브라우저에 대한 정보를 가짐
+    // 5) document(DOM): 문서 객체, 웹 문서 관련
+
+    
+    // 0) window 객체
+
+    // (1) open(): 팝업 창을 나타낼 때 사용
+    // 지정한 URL 페이지를 새 브라우저 창에 나타낼 수 있다.
+    // 예: 광고 팝업 - 최근에 브라우저에서 팝업 차단을 할 수 있어 광고 팝업은 잘 안쓰이는 듯..
+
+    // open('URL', '새 창의 이름', '새 창의 옵션');
+    // window.open('https://www.google.com', '구글', 'width=350, height=400, left=50, top=10');
+
+    // 팝업 창 닫기 예제
+    // window.open('winpopup.html', 'popup', 'width=300, height=400, left=300, top=50');
+
+    // (2) alert('메시지'): 경고창을 나타낼 때 사용
+    // alert('잘못된 입력입니다.');
+
+    // (3) prompt('메시지', '기본값'): 질의응답 창을 나타낼 때 사용
+    // 확인을 누르면 입력한 값을 반환, 취소를 누르면 null을 반환
+    // const age = prompt('당신의 나이는?', '0');
+    // console.log(age);
+
+    // (4) confirm('메시지'): 확인/취소 창을 나타낼 때 사용
+    // 확인을 누르면 true를 반환, 취소를 누르면 false 반환
+    // const remove = confirm('정말로 삭제하시겠습니까?');
+    // console.log(remove);
+
+    // 일정한 시간 간격으로 코드 실행하기
+    // (5) setInterval(): 일정한 시간 간격으로 코드를 반복 실행
+    // (6) clearInterval(): 변수를 이용해 setInterval() 메소드를 취소
+    // 변수 = setInterval(함수, 밀리초);
+    // clearInterval(변수);
+    let addNum = 0;
+    let subNum = 1000;
+
+    const counter = setInterval(function() {
+      addNum++;
+      console.log('addNum: ' + addNum);
+    }, 1000);
+
+    const timer = setInterval(function() {
+      subNum--;
+      console.log('subNum: ' + subNum);
+    }, 1000);
+
+    // (7) setTimeout(): 일정 시간 뒤에 코드를 실행
+    // (8) clearTimeout(): 변수를 이용해 setTimeout() 메소드를 취소
+    // 변수 = setTimeout(함수, 밀리초);
+    // clearTimeout(변수);
+
+    const myTimeout = setTimeout(function () {
+      document.querySelector('.happy').innerHTML = 'Happy New Year!';
+    }, 3000);
+
+    // 1) screen 객체
+    // 사용자의 모니터(화면) 정보를 제공
+    // 예: 모니터 너비나 높이 등
+    document.write('<h1>screen 관련 속성</h2>');
+    document.write(screen.width, '<br>');
+    document.write(screen.height, '<br>');
+    document.write(screen.availWidth, '<br>');
+    document.write(screen.availHeight, '<br>');  // 작업표시줄을 제외한 사용 가능한 너비/높이
+
+    // 2) location 객체
+    // 현재 URL과 관련된 속성과 메소드 제공
+    // 예: 현재 URL 정보(속성), 새로 고침(메소드)
+    document.write('<h1>location 관련 속성</h2>');
+    document.write(`origin: ${location.origin}<br>`)
+    document.write(`protocol: ${location.protocol}<br>`)
+    document.write(`host: ${location.host}<br>`)
+    document.write(`hostname: ${location.hostname}<br>`)
+    document.write(`port: ${location.port}<br>`)
+    document.write(`href: ${location.href}<br>`)
+    document.write(`search: ${location.search}<br>`) // 주소에 ?물음표 뒤에 나오는 부분 key=value
+
+    // location.reload(); // 새로 고침
+
+    // 리다이렉트 하기
+    function href() {   // 뒤로 가기 가능 (=히스토리가 쌓임)
+      location.href = 'http://www.naver.com';
+    }
+    function replace() {   // 뒤로 가기 불가능 (=히스토리를 새로 쌓음, back 불가)
+      location.replace('http://www.naver.com');
+    }
+    
+
+    // 3) history 객체
+    // 사용자가 방문한 사이트의 기록을 남기고, 이전과 다음 페이지로 다시 돌아갈 수 있도록 제공
+    document.write('<h1>history 관련 속성</h2>');
+    document.write(`length: ${history.length}`);  // 방문 기록에 저장된 URL(페이지) 개수
+
+    // 이전, 다음 페이지로 이동
+    // 브라우저 뒤로 가기, 앞으로 가기와 동일
+    function back() {
+      history.back();
+    }
+    function forward() {
+      history.forward();
+    }
+
+
+    // 4) navigator 객체
+    // 현재 방문자가 사용하는 브라우저 정보와 운영체제 정보를 제공
+    document.write('<h1>navigator 관련 속성</h2>');
+    document.write(`userAgent: ${navigator.userAgent}`); // 종합 정보
+
+    const info = navigator.userAgent.toLowerCase();
+    let osImg = null;
+    if (info.indexOf('windows') >= 0) {
+      osImg = 'windows.png';
+    } else if (info.indexOf('macintosh') >= 0) {
+      osImg = 'macintosh.png';
+    } else if (info.indexOf('iphone') >= 0) {
+      osImg = 'iphone.png';
+    } else if (info.indexOf('android') >= 0) {
+      osImg = 'android.png';
+    }
+
+    document.write(`<img src="images/${osImg}">`);
+
+
+
+  </script>
+</head>
+<body>
+  <h1>일정 시간 간격으로 값 증감시키기</h1>
+  <button onclick="clearInterval(counter)">증가 정지</button>
+  <button onclick="clearInterval(timer)">감소 정지</button>
+
+
+  <h1>setTimeout() 동작을 취소하려면 3초 안에 버튼을 클릭하세요.</h1>
+  <h2 class="happy"></h2>
+  <button onclick="clearTimeout(myTimeout)">멈추기</button>
+
+
+  <hr>
+  <h1>리다이렉트 하기</h1>
+  <button onclick="href()">Naver로 이동</button>
+  <!-- -> 뒤로 가기 가능 -->
+  <button onclick="replace()">Naver로 이동</button>
+  <!-- -> 뒤로 가기 불가능 -->
+
+
+  <hr>
+  <h1>이전, 다음 페이지로 이동</h1>
+  <button onclick="back()">뒤로 가기</button>
+  <button onclick="forward()">앞으로 가기</button>
+
+  
+  <hr>
+
+
+
+</body>
+</html>

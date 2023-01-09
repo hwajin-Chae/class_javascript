@@ -27,6 +27,31 @@
     // });
 
     // 풀이5
+
+    const imgFileExt = ['jpg', 'png', 'gif'];
+    let fileExt;
+    const fileInput = document.querySelector('input[type=file]');
+
+    fileInput.addEventListener('change', function () {
+      debugger;
+      console.log(fileInput);  // input DOM
+      console.log(fileInput.files);  // fileList 객체
+      console.log(fileInput.files[0]); // file 객체
+
+      const fileName = fileInput.files[0].name;
+      fileExt = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase(); 
+      console.log(fileExt);
+
+      // if (fileExt !== 'jpg' &&
+      //     fileExt !== 'png' && 
+      //     fileExt !== 'gif') {
+      //       alert('이미지 파일이 아닙니다!');
+      // }
+
+      if (!imgFileExt.includes(fileExt)) {
+        alert('이미지 파일이 아닙니다!');
+      }
+    });
     
   </script>
 </body>

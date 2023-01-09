@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script>
+    // 함수
+    // 여러 실행 코드들의 묶음(그룹화)
+    // 자주 사용하는 코드들(기능)을 저장했다가 필요할 때 호출해서 사용
+    // function 키워드를 사용하여 정의 => ES 6차에서는 화살표 함수를 사용
+
+    // 1. 함수 선언문: 기명 함수로 정의
+    // function 함수명() {
+    //   실행코드;
+    // };
+
+    // 2. 함수 표현식: 익명 함수를 변수에 할당
+    // 변수 = function () {
+    //   실행코드;
+    // };
+
+    // 위와 같이 정의된 함수는 즉시 실행되지 않음, 메모리에 할당되어 있다가 함수가 호출되면 실행
+    // 1. 함수명();
+    // 2. 변수명();
+
+    function greeting() {
+      document.write('hello<br>');
+    }
+    greeting();
+    function greeting(name) {
+      document.write('hello ' + name, '<br>');
+    }
+    greeting('김재현');
+
+    // (참고) 함수 선언문과 함수 표현식의 차이점
+    // 함수 선언문은 호이스팅(끌어 올리기)이 일어난다.
+    // 해당 스코프(유효 범위)의 최상단으로 끌어올려진 것과 같은 현상
+    // 변수나 함수 선언이 코드 실행보다 먼저 메모리에 할당(저장)되는 과정
+
+    // 1. 함수 선언문: 기명 함수로 정의
+    // function 함수명() {
+    //   실행코드;
+    // }; 
+    let count = 0;
+
+    myFunc();
+
+    function myFunc() {
+      count++;
+      document.write('hello ' + count, '<br>');
+    }
+
+    myFunc();
+
+    // theFunc();  // error
+
+    // 2. 함수 표현식: 익명 함수를 변수에 할당
+    // 변수 = function () {
+    //   실행코드;
+    // };
+
+    const theFunc = function () {
+      count++;
+      document.write('bye' + count, '<br>');
+    };
+
+    theFunc();
+
+    // 버튼 클릭할 때마다 배경색이 바뀌도록 함수 만들기
+    const color = ['yellow', 'aqua', 'purple', 'white'];
+
+    let i = 0;
+    function changeColor() {
+      if (i >= color.length) {
+        i = 0;
+      }
+      
+      const bodyTag = document.querySelector('body');
+      bodyTag.style.backgroundColor = color[i++];
+    }
+
+    document.write('<hr>');
+
+
+    // 매개변수가 있는 함수
+    // function 함수명(매개변수1, 매개변수2, ....) {
+    //  실행코드;
+    // }
+    // 함수명(인자값1, 인자값2, ...);
+    function introduce(name, area) { // 외부에서 받을 데이터가 있으면 매개 변수를 선언
+      document.write(`안녕하세요. ${name}입니다.<br>`);
+      document.write(`사는 곳은 ${area}입니다.<br>`);
+    }
+    introduce('김재현', '서울'); // 인자값(인수, 매개값) 넘겨줌
+    introduce('김재현');
+
+
+    // 로그인 함수 만들기
+    const dbId = 'goni';
+    const dbPw = '1234';
+
+    // 잘못된 id 입력: alert('존재하지 않는 아이디입니다.');
+    // 잘못된 id 입력: alert('잘못된 비밀번호입니다.');
+    // 로그인 성공 시 : document.write(id + '님 방문을 환영합니다.');
+    document.write('<hr>');
+
+    function login(Id, Pw) {
+      if (dbId === Id) {
+        if (dbPw === Pw) {
+          document.write(Id + '님 방문을 환영합니다.');
+        } else {
+          alert('잘못된 비밀번호입니다.');
+        }
+      } else {
+        alert('존재하지 않는 아이디입니다.');
+      }};
+    // const userId = prompt('아이디를 입력하세요.');
+    // const userPw = prompt('패스워드를 입력하세요.');
+    // login(userId, userPw);
+
+
+    // 매개변수 없이 함수에 전달된 값 받아오기
+    // arguments 내장 객체
+    // function 함수명() {
+    //   arguments;
+    // }
+    // 함수명(인자값1, 인자값2, 인자값3);
+    function sumAll() {
+      // argument = [1, 10, 100, 1000, 10000];
+      let sum = 0;
+      for (let i = 0; i < arguments.length; i++) {
+        sum += arguments[i];
+      }
+      document.write('총 합: ' + sum);
+    }
+    sumAll(1, 10, 100, 1000, 10000);
+    document.write('<br>');
+
+
+    document.write('<hr>');
+
+    
+    // 함수에서 return 문의 역할
+    // 데이터(결과값)를 반환
+    // 함수를 강제 종료
+
+    // function 함수명() {
+    //   실행코드;
+    //   return 값;
+
+    //   실행코드2; (실행X)
+    // };
+    function sum(num1, num2) {
+      const result = num1 + num2
+      return result;  // return num1 + num2
+    }
+    const result = sum(10, 20);
+    document.write(result, '<br>');
+
+
+    // 두 과목의 점수를 입력받아 평균 점수 구하기
+
+    // function testAvg(arrData) {
+      // let sum = 0;
+      // for (let i = 0; i < arrData.length; i++) {
+      //   sum += Number(prompt(arrData[i] + '점수는?', '0'));
+      // }
+
+    //   const avg = sum / arrData.length;
+    //   return avg;
+    // }
+    // const arrSubject = ['국어', '수학'];
+    // const resultAvg = testAvg(arrSubject);
+    // document.write(`평균 점수는 ${resultAvg}점 입니다.<br>`);
+
+
+    // 이전/다음 버튼으로 이미지 넘기기
+    let imgNum = 1;
+    function gallery(direct) {
+      if (direct) {
+        if (imgNum === 8) return; // 함수 종료 d/t 계속 +넘어감
+        imgNum++;
+      } else {
+        if (imgNum === 1) return; // 함수 종료 d/t 계속 -넘어감
+        imgNum--;
+      }
+
+      const imgTag = document.querySelector('.photo');
+      imgTag.setAttribute('src', `images/pic_${imgNum}.jpg`);
+    }
+
+
+    // 재귀 함수 호출
+    // 함수 안에서 함수를 다시 호출하는 것
+    // 함수를 반복문처럼 여러 번 호출하기 위해 사용
+    // function 함수명() {
+    //   실행코드;
+    //   함수명();
+    // }
+    // 함수명();
+    // 노란 괄호 함수 호출 후, 분홍 함수 안에서 돌고...
+
+
+    // 재귀 함수 호출을 적용하여 1~10까지 출력
+    // let num = 0;
+    // function testFunc() {
+    //   num++;
+    //   document.write(num, '<br>');
+    //   if (num === 10) reture;
+
+    //   testFunc();
+    // }
+    // testFunc();
+
+
+    // *** 스코프(유효 범위) 개념
+    // 변수 또는 함수의 사용 가능한 유효 범위
+    // 전역(전체) 스코프: 코드의 어느 곳에서나 접근 가능
+    // 블록 스코프: 선언된 블록 내부에서만 접근 가능
+    // 여기에서 말하는 블록은: 함수, 조건문, 반복문 등 중괄호({})로 구분되는 모든 영역을 의미
+
+    // 전역 변수와 지역 변수
+    let globalNum = 50;  // 전역 변수
+    function testVarScope() {
+      let localNum = 200;  // 지역 변수
+      document.write(`함수 안: ${globalNum}<br>`);
+      document.write(`함수 안: ${localNum}<br>`);
+    }
+    testVarScope();
+      document.write(`함수 밖: ${globalNum}<br>`);
+      // document.write(`함수 밖: ${localNum}<br>`); // error
+
+
+    // 외부(전역) 함수와 내부(지역) 함수
+    function outerFunc() {  // 외부 함수
+      function innerFunc() {  // 내부 함수
+        document.write('내부 함수<br>');
+      }
+
+      innerFunc();
+    }
+    outerFunc();
+    // innerFunc(); // error
+
+    // 전역과 지역을 나누는 이유?
+    // 변수명(아니면 비슷한 기능의 함수명) 충돌을 피하기 위해
+    // 해당 데이터가 전체에서 쓰인다면 전역 변수로, 함수 내 또는 제어문 내에서만 쓰이면 지역 변수로 선언
+    // 지역 변수의 예: for문의 초기화 식
+    for (let i = 0; i < 1; i++) {
+      
+    }
+    for (let i = 0; i < 1; i++) {
+      
+    }
+    
+  </script>
+</head>
+
+<body>
+  <hr><br>
+  <button onclick="changeColor()">배경색 바꾸기</button>
+
+
+  <div>
+    <p>
+      <img src="images/pic_1.jpg" alt="photo" class="photo">
+    </p>
+    <p>
+      <button onclick="gallery(0)">이전</button>
+      <button onclick="gallery(1)">다음</button>
+    </p>
+  </div>
+</body>
+</html>
