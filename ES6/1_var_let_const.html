@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script>
+    // ES6차(ES2015) ECMA 2015년 표준
+
+    // var, let, const의 차이
+
+    // 1. var
+    // 함수 스코프에 종속, 그 외엔 전역 스코프
+    // 블록 기준으로 스코프가 생기지 않기 때문에 블록 밖에서 접근 가능
+    // for문(블록 스코프) 내에서 var로 선언하면 for문 밖에서도 사용 가능
+    for (let i = 0; i < 10; i++) {
+      var leak = 'I am available outside of the loop';
+    }
+    console.log(leak);
+    // 블록을 뚫고 바깥에도 출력이 가능. = 전역 스코프
+
+    function myFunc() {
+      var functionScoped = 'I am available inside this function';
+      console.log(functionScoped);
+    }
+    myFunc();
+    // console.log(functionScoped);  // 함수를 벗어나면 접근 불가
+
+
+    // 2. let
+    // 블록 스코프에 종속, 그 외엔 전역 스코프
+    // 변수가 선언된 블록과 그 하위 블록 내에서만 사용 가능
+    // let 사용 예
+    let x = 'global';
+    if (x === 'global') {
+      let x = 'block-scoped';   // 전역 / 지역 변수이기 때문에, let x를 써도 오류 안남
+
+      console.log(x);
+    }
+    console.log(x);  // 맨 위에 let x = 'global';
+    // --------------------> console. block-scoped / global
+
+    // var 사용 예
+    var y = 'global';
+    if (y === 'global') {
+      var y = 'block-scoped';
+
+      console.log(y);
+    }
+    console.log(y);  // y값이 변경되어 있음
+    // --------------------> console. block-scoped / block-scoped
+
+
+    // 3. const
+    // 블록 스코프에 종속, 그 외엔 전역 스코프
+    // let과의 차이점: 값이 변경될 수 없다.
+    const constant = 'I am a constant';
+    // constant = 'reassigned';  // error. 값의 재할당 불가
+
+    // const에 객체가 담겼다면..?!
+    const person = {
+      name: 'goni',
+      age: 25
+    }
+
+    person.age = 26;
+    console.log(person.age);
+    person.age = 36;
+    console.log(person.age);
+    // person 값 자체가 아닌, 내부 속성을 바꾸는 것이어서 가능
+    // = 변수 전체를 재할당 하는 것이 아니라 그 속성 중 하나만 재할당 하는 것이라 문제 없음
+    // person 변수에는 객체의 주소값이 들어있음(참조 변수)
+
+    // (참고) 객체의 내용을 변경할 수 없게 const 객체를 고정할 수 있다.
+
+    const fixPerson = {
+      name: 'chae',
+      age: '32'
+    };
+    
+    Object.freeze(fixPerson);
+    
+    fixPerson.age = 22;
+    console.log(fixPerson.age);
+
+
+    // 4. 선언하기 전에 사용할 수 있는 var
+    console.log(iam);
+    var iam = 'I am a variable';
+    // var는 정의되기 전에 접근 가능, 값은 비어 있는 상태(undefined)
+
+    // console.log(jam);
+    let jam = 'I am a let';
+    // let, const는 정의되기 전에 접근 불가
+
+    // 5. var는 중복 선언을 허용함
+    var user = 'Peter';
+    var user = 'John';
+    console.log(user);
+
+    // var와 let, const의 차이점 정리
+    // 1) 스코프가 다르다.
+    // var로 선언한 변수는 블록 스코프가 아닌 함수 수준 스코프를 갖는다.
+    // 2) var는 정의되기 전에 접근 할 수 있다.(대신 값은 undefined)
+    // 3) var는 중복 선언을 허용한다.
+
+    
+    
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

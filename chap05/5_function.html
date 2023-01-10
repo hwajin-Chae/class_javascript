@@ -98,6 +98,8 @@
     introduce('김재현');
 
 
+    document.write('<hr>');
+
     // 로그인 함수 만들기
     const dbId = 'goni';
     const dbPw = '1234';
@@ -105,8 +107,7 @@
     // 잘못된 id 입력: alert('존재하지 않는 아이디입니다.');
     // 잘못된 id 입력: alert('잘못된 비밀번호입니다.');
     // 로그인 성공 시 : document.write(id + '님 방문을 환영합니다.');
-    document.write('<hr>');
-
+    
     function login(Id, Pw) {
       if (dbId === Id) {
         if (dbPw === Pw) {
@@ -121,6 +122,9 @@
     // const userPw = prompt('패스워드를 입력하세요.');
     // login(userId, userPw);
 
+
+
+    document.write('<hr>');
 
     // 매개변수 없이 함수에 전달된 값 받아오기
     // arguments 내장 객체
@@ -137,9 +141,8 @@
       document.write('총 합: ' + sum);
     }
     sumAll(1, 10, 100, 1000, 10000);
+
     document.write('<br>');
-
-
     document.write('<hr>');
 
     
@@ -159,6 +162,8 @@
     }
     const result = sum(10, 20);
     document.write(result, '<br>');
+
+    document.write('<hr>');
 
 
     // 두 과목의 점수를 입력받아 평균 점수 구하기
@@ -209,7 +214,7 @@
     // function testFunc() {
     //   num++;
     //   document.write(num, '<br>');
-    //   if (num === 10) reture;
+    //   if (num === 10) return;
 
     //   testFunc();
     // }
@@ -256,6 +261,92 @@
       
     }
     
+
+    document.write('<hr>');
+
+
+    // (참고) 객체 생성자 함수
+    // 내장 객체를 사용할 땐 자바스크립트 엔진에 내장된 객체 생성자 함수를 사용하여 객체 생성
+    // 직접 객체 생성자 함수를 선언하고 객체 생성 => 유사한 객체를 여러 개 만들 때 사용
+    // function 함수명(매개변수1, 매개변수2, ...) {
+    //   this.속성명 = 값;
+    //   this.메소드명 = function () {
+    //     실행코드;
+    //   }
+    // }
+    // const 변수 = new 함수명(); // 객체 생성
+
+    // 일반 함수와 구분?
+    // 1) 함수 이름의 첫 글자는 대문자로 시작(관례임.. JS, JAVA도)
+    // 2) 반드시 'new' 키워드를 붙여 실행
+    function CheckWeight(name, height, weight) {
+      this.userName = name;
+      this.userHeight = height;
+      this.userWeight = weight;
+      
+      this.getInfo = function () {
+        let str = '';
+        str += '이름: ' + this.userName + ', ';
+        str += '키: ' + this.userHeight + ', ';
+        str += '몸무게: ' + this.userWeight + '<br>';
+        return str;
+      }
+    }
+
+    const jang = new CheckWeight('장보리', 168, 62);
+    console.log(jang);
+    const chae = new CheckWeight('hj chae', 168, 70);
+    console.log(chae);
+
+    document.write(jang.getInfo());
+
+    document.write('<hr>');
+
+    // 내장 함수
+    // 자바스크립트 엔진에 내장되어 바로 호출 가능한 함수
+
+    // 문자열 데이터를 정수형 데이터로 반환
+    console.log(parseInt('10.33'));
+    console.log(parseInt('15px'));
+    console.log(parseInt('-18.62'));
+
+    
+    // 문자형 데이터로 반환
+    console.log(String(5));
+    console.log(String([1, 2, 3, 4]));
+    console.log(String(new Date()));
+
+
+    // 숫자형 데이터로 반환(숫자형으로 바꿀 수 없으면 NaN을 반환)
+    console.log(Number('5'));
+    console.log(Number(true));
+    console.log(Number(false));
+    console.log(Number('abc'));
+
+
+    // 논리형 데이터로 반환
+    // false값들: false, 0(-0), ''(""), undefined, null, NaN
+    console.log(Boolean(5));  // true
+    console.log(Boolean(null));  // false
+    console.log(Boolean(10 > 9));  // true
+
+
+    // NaN(Not-a-Number) 값이면 true를 반환--> = 숫자가 아니다~
+    console.log(isNaN(5));
+    console.log(isNaN(5 - 2));
+    console.log(isNaN('123'));  // 테스트 하기 전에 값을 숫자로 변환
+    console.log(isNaN('Hello')); // true
+
+
+
+
+
+
+
+
+
+
+
   </script>
 </head>
 
