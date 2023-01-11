@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    // 템플릿 리터럴
+    // 벡틱(``) 기호를 사용하여 문자열 삽입
+
+    // 1. 문자열 삽입
+    // ES5
+    var name = 'goni';
+    var greeting = 'Hello my name is ' + name;
+
+    console.log(greeting);
+
+    // ES6
+    const name2 = 'goni';
+    const greeting2 = `Hello my name is ${name2}`;
+
+    console.log(greeting2);
+
+    
+    // 2. 표현식 삽입 (연산식도 가능)
+    // ES5
+    var exp1 = 1;
+    var exp2 = 10;
+    console.log('1 * 10 is ' + (exp1 * exp2));
+
+    // ES6
+    const exp3 = 1;
+    const exp4 = 10;
+    console.log(`1 * 10 is ${exp1 * exp2}`);
+
+
+    // 3. 여러 줄 문자열 생성
+    // ES5: 각 행마다 백슬래시를 삽입해야 함
+    var text = 'hello, \ my name is goni \ how are you?'
+
+    // ES6: 전체를 벡틱으로 감싸기만 하면 됨
+    const content = `hello,
+my name is goni
+how are you?`;
+    console.log(content);
+
+
+    //
+    function calculatePrice(total, tax = 0.1, tip = 0.05) {
+      return total + (total * tax) + (total * tip);
+    }
+    console.log(calculatePrice(10));
+
+
+    //
+    let a = 'Hello,';
+    let b = 'is';
+    let c = 'my';
+    let d = 'name';
+    let e = 'tom';
+
+    let result = `${a} ${c} ${d} ${b} ${e}`;
+    console.log(result);
+
+
+    let f = '1';
+    let g = '2';
+    let h = 'plus';
+    let i = '3';
+    let j = 'equals';
+
+    let result2 = `${f} ${h} ${g} ${j} ${i}`;
+    console.log(result2);
+
+
+    let str = `this is a very long text
+a very long text`;
+    console.log(str);
+
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

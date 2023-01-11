@@ -26,6 +26,7 @@
       let result = x;
       
       for (let i = 1; i < n; i++) {
+        // i < n : 이미 result로 x 값을 주면서 한 번 곱해졌으니까, n은 i보다 1 작아야 함
         result *= x;
       }
       return result;

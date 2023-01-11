@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script>
+    // 함수 매개변수(또는 인수)의 기본값
+
+    // ES5
+    function getLocation(city, country, continent) {
+      if (typeof country === 'undefined') {
+        country = 'Italy';
+      }
+      if (typeof continent === 'undefined') {
+        continent= 'Europe';
+      }
+      // 전달 받은 값이 없는 경우에 기본값을 제공하는 코드
+
+      console.log(continent, country, city);
+    }
+    getLocation('Milan');
+    getLocation('Paris', 'France');
+
+
+    // 만약 매개변수의 순서를 바꾼다면..?
+    function getLocation2(continent, country, city) {
+      if (typeof country === 'undefined') {
+        country = 'Italy';
+      }
+      if (typeof continent === 'undefined') {
+        continent= 'Europe';
+      }
+      // 전달 받은 값이 없는 경우에 기본값을 제공하는 코드
+
+      console.log(continent, country, city);
+    }
+    getLocation(undefined, undefined, 'Milan');
+    getLocation(undefined, 'France', 'Paris');
+
+
+
+    // ES6
+    function myFunction(x, y = 10) {  // = n 으로 기본값 써줄 수 있음
+      return x + y;
+    }
+    console.log(myFunction(5));
+
+    // 
+    function calculate(total, tax = 0.2, tip = 0.1) {
+      // tax나 tip에 값을 할당하지 않으면 기본값으로 0.2와 0.1이 쓰임
+      return total + (total * tax) + (total * tip);
+    }
+    console.log(calculate(100, 0.3))
+    // tax에는 인자값을 전달하지 않고 tip에만 0.15를 할당하려면..?
+    console.log(calculate(100, undefined, 0.15)); // 깔끔하지 않음, 개선 방법은 디스트럭처링
+
+
+
+
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

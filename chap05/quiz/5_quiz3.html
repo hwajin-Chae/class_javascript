@@ -14,20 +14,40 @@
 
 
     // 풀이3
+    // 한글로 풀이(플로우 차트 글로 적기)
+    // 1) 함수 printNumbers(from, to) 선언하기
+    // 2) 1초 간격으로(setInterval(f, 1000)) from 값을 출력 시키기
+    // 3) from 값을 1씩 증가시키기(+ 1, ++)
+    // 4) to 값까지만(조건: from === to, from >= to) 출력하고 멈추기(clearInterval())
+
     
 
+    // printNumbers(5, 10);
+
+    // let num = 4;
+    // const counter = setInterval(function () {
+    //   num++;
+    //   console.log(num);
+    //   if (num === 10)
+    // }, 1000);
+    
+    // function printNumbers() {
+    // }
+
+    function printNumbers(from, to) {
+      const timerId = setInterval(function () {
+        document.write(from);
+        if (from === to) {
+          clearInterval(timerId);
+        }
+        from++;
+      }, 1000);
+      }
+      
     printNumbers(5, 10);
 
-    let num = 5;
-    const counter = setInterval(function () {
-      num++;
-      console.log(num);
-      if (num === 10) return;
-    }, 1000);
 
-    function printNumbers() {
-      // if (num === 10) return;
-    }
+
   </script>
 </head>
 <body>
