@@ -7,7 +7,7 @@
   <title>Document</title>
 </head>
 <body>
-  <input type="file">
+  <input type="file" multiple>
 
   <script>
     // 문제5
@@ -36,6 +36,13 @@
       debugger;
       console.log(fileInput);  // input DOM
       console.log(fileInput.files);  // fileList 객체
+
+
+      // ************ ES6 8_array_method.html ************
+      console.log(Array.from(fileInput.files));  // fileList 객체를 실제 배열로 변환
+      // ************ ES6 8_array_method.html ************
+
+
       console.log(fileInput.files[0]); // file 객체
 
       const fileName = fileInput.files[0].name;

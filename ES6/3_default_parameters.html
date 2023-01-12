@@ -58,6 +58,34 @@
     console.log(calculate(100, undefined, 0.15)); // 깔끔하지 않음, 개선 방법은 디스트럭처링
 
 
+    // 구조 분해 할당을 통해 개선한 코드 (6.destructuring 참고)
+    // 함수 호출의 인수를 객체로 만들어서 넘김
+    // 장점: 매개변수 순서에 신경을 안써도 되니 필요한 값만 넘겨주면 됨
+    function calculate2({ total = 0, tax = 0.2, tip = 0.1 }) {
+      return total + (total * tax) + (total * tip);
+    }
+    console.log(calculate2({ total: 100, tip:0.15 }));
+    console.log(calculate2({ tip:0.15, total: 100 }));
+    // 순서 변경되어도 key 값으로 찾는 거라 상관 없음
+    console.log(calculate2({}));
+    // console.log(calculate2());
+    // console.log(calculate2(undefined)); // error
+
+
+    // 빈 객체로 기본값 설정하기 .... 이거 --->  = {}
+    function calculate3({ total = 0, tax = 0.2, tip = 0.1 } = {}) {
+      // = {} 을 추가해야 인수를 기본적으로 빈 객체로 설정
+      return total + (total * tax) + (total * tip);
+    }
+    console.log(calculate3({ total: 100, tip:0.15 }));
+    console.log(calculate3({ tip:0.15, total: 100 }));
+    // 순서 변경되어도 ke3 값으로 찾는 거라 상관 없음
+    console.log(calculate3({}));
+    console.log(calculate3());
+    console.log(calculate3(undefined)); // error 안남 !
+
+
+
 
 
 
