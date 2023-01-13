@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script>
+    // html, css - W3School   /   JS - mdn  참고
+    // ES6 ES2015
+    // ES7 ES2016
+    // ES8 ES2017
+    
+    // 1. ... 스프레드(spread, 펼치다[펴다]) 연산자
+    
+    // 스프레드 문법을 사용하면
+    // (함수 호출의 경우) 0개 이상의 인수 또는 (배열 리터럴의 경우) 요소가 예상되는 위치에서
+    // 배열 또는 문자열과 같은 반복 가능 항목을 확장할 수 있습니다.
+    // 객체 리터럴에서는 객체의 속성을 열거하고 생성 중인 객체에 키-값 쌍을 추가합니다. - MDN 설명 인용
+
+    // 결론: 객체의 요소를 펼친다.
+
+    // 1) 배열의 결합
+    const veggie = ['tomato', 'cucumber', 'beans'];
+    const meat = ['pork', 'beef', 'chicken'];
+
+    const menu = [...veggie, 'pasta', ...meat];
+    console.log(menu);
+    // ... 스프레드 문법으로, veggie와 meat 배열의 모든 요소를 풀어서 menu 배열에 넣고 그 사이에 'pasta' 라는 새 항목을 추가
+
+    // 2) 배열의 복사
+    // 배열의 복사본을 생성할 때 매우 유용
+    const newVeggie = veggie;
+    // veggie 배열의 복사본을 생성한 것처럼 보이지만..
+
+    newVeggie.push('peas');
+    console.log(newVeggie);
+    console.log(veggie);  // 복사본이 아니라, 원본까지 같이 변경됨
+    // 그 이유는 실제로 복사본을 만드는 것이 아니라, 새 배열은 단순히 이전 배열을 참조하기 때문
+
+
+    // ES5에서 일반적으로 배열의 복사본을 만드는 방법
+    const originVeggie = ['tomato', 'cucumber', 'beans'];
+    const copyVeggie = originVeggie.concat();
+    // const copyVeggie = [].concat(originVeggie);
+    copyVeggie.push('peas');
+    console.log(copyVeggie);  // peas 추가
+    console.log(originVeggie);  // 원본은 그대로 남아있음
+
+
+    // ES6에서 스프레드 문법으로 배열의 복사본을 만드는 방법
+    const copyVeggieES6 = [...originVeggie];
+    // originVeggie의 모든 요소를 펼쳐서 넣음
+    copyVeggieES6.push('peas');
+    console.log(copyVeggieES6);
+    console.log(originVeggie);
+
+
+    // 3) 함수와 스프레드 연산자
+    // 인수들을 요소로 가지는 배열에 스프레드 연산자를 사용하면 함수를 쉽게 호출 가능
+
+    function doStuff(x, y, z) {
+      console.log(x + y + z);
+    }
+    const args = [0, 1, 2];
+
+    // doStuff(args); /// 매개변수 x에 args 배열이 할당됨, y, z는 undefined
+    doStuff(...args);
+
+
+    // 다른 예
+    const name = ['Goni', 'Kim'];
+    
+    function greet(first, last) {
+      console.log(`Hello ${first} ${last}`);
+    }
+    greet(...name); // 배열의 두 요소 값은 함수의 두 매개변수에 자동으로 할당
+
+    // 지정된 매개변수보다 더 많은 값을 제공하면..?
+    const otherName = ['Goni', 'Kim', 'goni'];
+    greet(...otherName); // 마지막 값('goni')는 제외된다.
+
+    // (활용) 최대값 구하기
+    const numbers = [23, 40, 10, 78, 94, 32, 101];
+    const maxValue = Math.max(...numbers);
+    console.log(`최대값: ${maxValue}`);
+
+
+
+    // 4) 객체 리터럴과 스프레드(ES2018부터 객체에도 적용됨)
+    // 4-1) 객체의 복사
+    const person = {
+      name: 'Goni',
+      surname: 'Kim',
+      age: 35
+    };
+
+    const clone = {...person};  // 객체는 {};, 배열은 [];
+    console.log(clone);
+    
+    clone.age = 15;
+    console.log(clone);
+    console.log(person);  // 원본 그대로
+
+
+    // 4-2) 객체의 결합
+    const teacher = {
+      name: 'JH kim',
+      age: 35
+    };
+
+    const classInfo1 = {
+      ...teacher,
+      subject: 'Web Frontend'
+    };
+
+    const classInfo2 = {
+      ...classInfo1,
+      day: 'weekday'
+    };
+
+    console.log(classInfo1);
+    console.log(classInfo2);
+
+
+    // 2. ... 레스트(rest, ) 연산자
+    // 생긴 것은 스프레드 연산자와 동일하지만 기능적으로는 정반대
+    // 스프레드는 '확장(펼치다)'하는 반면, 레스트는 나머지 여러 요소를 하나의 요소로 '압축'
+
+    // 1) 배열과 레스트
+    const runners = ['Kim', 'Lee', 'Park', 'Choi', 'Chae', 'Jeong'];
+    const [first, second, ...etc] = runners; // 레스트 연산자로 압축
+
+    console.log(etc);
+    console.log(...etc);  // 스프레드 연산자로 쓰임
+
+    // 2) 함수의 레스트 파라미터(매개변수) (매개변수 이름은 개발자가 쓰는 거)
+    function sum(...args) {
+      let sum = 0;
+      for (const arg of args) {
+        sum += arg;
+      }
+      return sum;
+    }
+    console.log(`합계: ${sum(4, 5, 16, 25, 100)}`);
+
+
+    // 3) 객체 리터럴과 레스트(ES2018부터 객체에도 적용됨)
+    const myObj = {
+      a: 1,
+      b: 3,
+      c: 5,
+      d: 7,
+      e: 9,
+    };
+
+    // 레스트 연산자를 사용하여 a, b를 제외한 나머지 속성을 변수 z에 할당
+    const { a, b, ...z } = myObj;
+    console.log(a);
+    console.log(b);
+    console.log(z);
+
+
+
+    // 교재9. quiz 9.2
+    const veggie2 = ['tomato', 'cucumber', 'beans'];
+    const meat2 = ['pork', 'beef', 'chicken'];
+    const menu2 = [...veggie2, 'pasta', ...meat2];
+    console.log(menu2);
+
+    // quiz 9.3
+    const runners2 = ['tom', 'paul', 'mark', 'luke'];
+    const looser2 = [first, second, ...runners2];
+    console.log(looser2)
+
+
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

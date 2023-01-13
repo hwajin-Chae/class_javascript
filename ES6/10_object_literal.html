@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script>
+
+    // 객체 리터럴 표기법의 변화(업그레이드)
+
+    // 1. 변수를 키와 값으로 하는 객체 만들기
+    const firstname = 'Goni';
+    const lastname = 'Kim';
+    const age = 25;
+    const nationality = 'Korean';
+
+    // ES5의 일반적인 방법
+    const person1 = {
+      firstname: firstname,
+      lastname: lastname,
+      age: age,
+      nationality: nationality
+    };
+    console.log(person1);
+
+    // ES6에서 단순화
+    // 변수들의 이름이 객체 내의 속성 이름과 동일한 경우 < 생략 가능 >
+    const person2 = {
+      firstname,
+      lastname,
+      age,
+      nationality
+    };
+    console.log(person2);
+
+
+    // 2. 객체에 함수 추가하기
+    // ES5
+    const person3 = {
+      name: 'Goni',
+      greet: function () {  // 키값 + 익명함수
+        console.log('Hello');
+      }
+    };
+    person3.greet();
+
+    // ES6
+    const person4 = {
+      name: 'Goni',
+      greet() {  // function 키워드 삭제 가능, 기명 함수(이름이 있는)
+        console.log('Hello');
+      }
+    };
+    person4.greet();
+
+    // 만약 화살표 함수로 변경 시
+    const person5 = {
+      name: 'Goni',
+      greet: () => { // 익명 함수에 접근하기 위한 key가 필요
+        console.log('Hello');
+      }
+    };
+    person5.greet();
+
+    
+    // 3. 객체의 속성을 동적으로 정의하기
+
+    // ES5  (원래 내용)
+    // const name = 'myname';
+    // const person6 = {};   // 빈 객체를 생성
+    // person6[name] = 'Goni';   // 객체를 업데이트(객체에 속성을 추가)
+    // console.log(person6.myname);
+
+
+    // ES5  (추가된 강의 내용)
+    // 변할 수 있는 값(key-value)을 []에 넣어 지정
+    const name = 'myldldkfname';
+    // 빈 객체를 생성
+    const person6 = {};
+
+    person6.age = 26;
+    person6.address = '인천';
+    person6[name] = 'Goni';
+
+    console.log(person6);
+
+    // 객체를 업데이트(객체에 속성을 추가)
+    console.log(person6.myname);
+
+    // ES6
+    // 객체 생성과 동시에 동적으로 속성 정의 가능
+    const person7 = {
+      [name]: 'Goni'
+    };
+    console.log(person7);
+    console.log(person7.myname);
+
+
+    // 교재10. quiz 10.1
+    const name2 = 'dog';
+    const age2 = 3;
+    const breed = 'Retriever';
+
+    const animal = {
+      name2,
+      age2,
+      breed,
+    }
+    console.log(animal);
+
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
