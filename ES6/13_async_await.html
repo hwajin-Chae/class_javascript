@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    // 3. async/await (ES2017)
+    // "프로미스를 작성하기 쉽게 만듭니다."
+
+    // async는
+    // - 함수가 프로미스를 반환하도록 함
+    // - 함수 앞에 붙이는 키워드
+
+    // await는
+    // - 함수가 프로미스를 기다리게 함
+    // - async 함수 내에서만 사용할 수 있음
+    // - 함수 실행을 일시 중지하고 프로미스 결과(성공 또는 실패)를 기다리도록 함
+
+
+    // 비동기 함수 만들어보기 예제
+    // 일반적인 함수
+    function fetchData() {
+      // 네트워크 요청을 통해 시간이 걸리는 작업...
+      return new Promise((resolve, reject) => {
+        resolve('네가 원하는 데이터');
+      });
+    }
+    fetchData().then(res => {
+      console.log(res);
+    });
+
+    // 비동기 함수를 만들기 위해 함수 앞에 async 키워드를 붙이면 자동으로 프로미스로 반환됨
+    async function fetchData2() {
+      // 네트워크 요청을 통해 시간이 걸리는 작업...
+      return '네가 원하는 데이터2';
+    }
+    fetchData2().then(res => {
+      console.log(res);
+    });
+    
+    // 3-1) 프로미스를 사용하는 일반적인 방식과 async/await로 리팩터링 하기
+    // 예제1
+    function walk(amount) {
+      return new Promise((resolve, reject) => {
+        if (amount < 500) {
+          reject('the value is too small');
+        }
+
+        setTimeout(() => {
+          resolve(`you walked for ${amount}ms`);
+        }, amount);
+      });
+    }
+
+    // walk(2000)
+    //   .then(res => {
+    //     console.log(res);
+    //     return walk(500);
+    //   })
+    //   .then(res => {
+    //     console.log(res);
+    //     return walk(900);
+    //   })
+    //   .then(res => {
+    //     console.log(res);
+    //     return walk(700);
+    //   })
+    //   .then(res => {
+    //     console.log(res);
+    //     return walk(800);
+    //   })
+    //   .then(res => {
+    //     console.log(res);
+    //     return walk(100);
+    //   })
+    //   .then(res => {
+    //     console.log(res);
+    //     return walk(300);
+    //   })
+    //   .then(res => {
+    //     console.log(res);
+    //     return walk(400);
+    //   });
+
+      // 예제1 리팩터링
+      async function go() {
+        // 프로미스가 완료될 때까지 기다리기 위해 await 키워드를 사용
+        // await를 사용하면 우리가 평상시 코딩하는 것처럼 동기적 코드로 보임(가독성+)
+        const res = await walk(500);  // 0.5초 기다림
+        console.log(res);
+        const res2 = await walk(900);  // 0.9초 기다림
+        console.log(res2);
+        const res3 = await walk(600);  // 0.6초 기다림
+        console.log(res3);
+        const res4 = await walk(700);  // 0.7초 기다림
+        console.log(res4);
+        const res5 = await walk(400);  // 0.4초 기다림
+        console.log(res5);
+        const res6 = await walk(200);  // 0.2초 기다림
+        console.log(res6);
+        const res7 = await walk(800);  // 0.8초 기다림
+        console.log(res7);
+      }
+      // go();
+      // await는 비동기 함수 내에서만 사용 가능!
+
+    // 예제2
+    // 깃허브API로 특정 깃허브 사용자 정보 조회
+    fetch('https://api.github.com/users/hwajin-Chae')
+      .then(res => {
+        return res.json();
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        // 실패 시 오류 출력
+        console.log(err);
+      });
+
+    // 예제2 리팩터링
+    const getGithubUserInfo = async username => {
+      const res = await fetch(`https://api.github.com/users/${username}`);
+      const userInfo = await res.json();
+      console.log(userInfo);
+    };
+    getGithubUserInfo('geoblo');
+    getGithubUserInfo('kws04181');
+    getGithubUserInfo('mikyeong-woo');
+
+
+
+    // 3-2) 오류 처리
+    // 일반적인 프로미스에서는 catch()를 사용하여 프로미스가 반환하는 오류들을 처리
+    // async/await도 비슷 - try/catch 구문 사용
+    async function asyncFunc() {
+      try {
+        // 에러 발생 가능한 코드들을 여기에..
+        const response = await fetch('api-url');
+        console.log(response);
+        if (!response.ok) {
+          throw new Error(`${response.status} (${response.statusText})`);
+        }
+      } catch (error) {
+        console.error(err);
+      }
+    }
+    asyncFunc();
+
+
+
+
+
+
+
+    // Quiz
+    // 앞의 프로미스 체이닝 예3을 async/await를 써서 리팩터링 하기
+
+
+    // 프로미스 체이닝 예3:
+    // 콜백 지옥 예제2를 프로미스로 리팩터링 하기
+
+    // ---------------------- 콜백 지옥의 예2 리팩터링
+    const loginUser = (id, password) => {
+      return new Promise((resolve, reject) => {
+        // 네트워크 통신을 하는 것처럼 꾸밈
+        setTimeout(() => {
+          if (id === 'goni' && password === '1234') {
+            // 로그인과 관련된 작업을 하고 서버에서 받아온 유저 정보(여기서는 그냥 id)를 콜백 함수에 전달함
+            resolve(id);
+          } else {
+            reject(new Error('존재하지 않음'));
+          }
+        }, 2000);
+      });
+    };
+
+    const getRoles = (userId) => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (userId === 'goni') {
+            // 권한을 가져오는 작업을 하고 받아온 권한 정보를 콜백 함수에 전달함
+            resolve({ name: 'JH Kim', role: 'admin' });
+          } else {
+            reject(new Error('접근 권한 없음'));
+          }
+        }, 1000);
+      })
+    };
+
+    const id = prompt('아이디를 입력하세요.');
+    const password = prompt('비밀번호를 입력하세요.');
+
+    loginUser(id, password)
+      .then(userId => { // 로그인이 성공하면, 그러면
+        return getRoles(userId); // userId 값을 통해 권한 정보를 얻는 getRoles() 호출
+      })
+      .then(userInfo => { // 권한 정보를 엊어오면, 그러면 alert 창 띄움
+        alert(`Welcome ${userInfo.name} (${userInfo.role})`);
+      })
+      .catch(err => {  // 에러 핸들링
+        console.error(err);
+      });
+    // ---------------------- 콜백 지옥의 예2 리팩터링
+
+    // 1. 가장 먼저 해야될 것: async 함수 만들기
+
+    // 예제1 리팩터링
+    // async function go() {
+    //     const res = await walk(500);  // 0.5초 기다림
+    //     console.log(res);
+    //     const res2 = await walk(900);  // 0.9초 기다림
+    //     console.log(res2);
+    //     const res3 = await walk(600);  // 0.6초 기다림
+    //     console.log(res3);
+    //     const res4 = await walk(700);  // 0.7초 기다림
+    //     console.log(res4);
+    //     const res5 = await walk(400);  // 0.4초 기다림
+    //     console.log(res5);
+    //     const res6 = await walk(200);  // 0.2초 기다림
+    //     console.log(res6);
+    //     const res7 = await walk(800);  // 0.8초 기다림
+    //     console.log(res7);
+    //   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
