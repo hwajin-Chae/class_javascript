@@ -7,69 +7,69 @@
   <title>Document</title>
 
   <script>
-    //  2-1 프로미스 (callback-PROMISE-async-await)
+    // 2-1) 프로미스
     // "결과를 약속합니다!"
-    // 예: (네트워크 요청 같은 시간이 좀 걸리는 로직을 통해) 데이터를 받아오면 그 때 네가 (then())에,  예) 등록한 콜백 함수를 실행할 것을 약속할게
+    // 예: (네트워크 요청 같은 시간이 좀 걸리는 로직을 통해) 데이터를 받아오면 그 때 네가 (then()에) 등록한 콜백 함수를 실행할 것을 약속할게
     // 비동기를 간편하게 처리할 수 있도록 도와주는 객체(콜백을 대체하여 비동기 처리 표준으로 쓰임)
     // 기능을 수행하고 나서 정상적으로 완료됐다면 처리된 결과값을 전달
     // 문제가 발생하면 에러를 전달해줌
 
     // 프로미스의 3가지 개념
     // 1) PromiseState - 프로미스 상태. 기능을 수행중인지, 완료됐는지(완료됐다면 성공인지 실패인지)에 대한 상태값
-    // pending(프로미스가 만들어져서 기능을 수행중일때) -> fulfilled(성공적으로 다 끝내면) or reject(예기치 못한 오류 발생 시)
+    // pending(프로미스가 만들어져서 기능을 수행중 일때) -> fulfilled(성공적으로 다 끝내면) or rejected(예기치 못한 오류 발생 시)
     // resolve() 호출 시 fulfilled 상태로 바뀜
     // reject() 호출 시 rejected 상태로 바뀜
 
     // 2) PromiseResult - 프로미스 상태에 따른 결과
     // "상태" -> 결과
-    // "Pending" -> undefined
+    // "pending" -> undefined
     // "fulfilled" -> 우리가 넘긴 결과값
     // "rejected" -> 일반적으로 Error 객체
 
-    // 3) Producing code -기능을 수행하는 후 해당 하는게 데이터를 만들어내는 코드(시간이 걸릴 수 있는 코드) 
+    // 3) Producing code - 기능을 수행한 후 해당하는 데이터를 만들어내는 코드(시간이 걸릴 수 있는 코드)
     //    Consuming code - 받은 데이터를 소비하는 코드(결과를 기다려야 하는 코드)
-    // 프로미스는 "Producing 와 "Comsuning code"를 연결하고 최종 성공 또는 실패를 나타내는 객체
+    // 프로미스는 "Producing code"와 "Consuming code"를 연결하고 최종 성공 또는 실패를 나타내는 객체
 
     // 프로미스 객체 만들기
     // 변수 = new Promise(콜백 함수);
-    // 콜백 함수의 매개변수(resolve, reject);
-    // resolve(): 가능을 정상적으로 수행해서 최종 데이터를 최종 데이터를 전달하는 콜백 함수
-    // reject() : 기능 수행 중 문제가 생기면 호출하게 될 콜백함수
-    
+    // 콜백 함수의 매개변수(resolve, reject)
+    // resolve(): 기능을 정상적으로 수행해서 최종 데이터를 전달하는 콜백 함수
+    // reject(): 기능 수행 중 문제가 생기면 호출하게 될 콜백 함수
+
     // 프로미스 예제1:
-    const myPromise = new Promise((resolve, react) => {
+    const myPromise = new Promise((resolve, reject) => {
       // Producing code 영역
       // 비동기적으로 수행하고 싶은 코드를 여기에 작성
-      console.log('네트워크 요청 작업 또는 파일을 읽는 작업을 수행중');
-      // 프로미스 객체가 생겅되고 바로 콜백 함수가 싱행됨
+      console.log('네트워크 요청 작업 또는 파일을 읽는 작업을 수행중...');
+      // 프로미스 객체가 생성되고 바로 콜백 함수가 실행됨!!
 
-      const resultFlag = true; // 기능 수행 결과를 임의로 저장
+      const resultFlag = false; // 기능 수행 결과를 임의로 저장
 
-      // 성공시 resolve(), 실패 시 reject() 두 콜백 중 하나를 호출해야 함
+      // 성공 시 resolve(), 실패 시 reject() 두 콜백 중 하나를 호출해야 함
       setTimeout(() => {
         if (resultFlag) {
-          resolve("기능 수행 후 얻은 데이터 ..") // 성공적으로 결과를 가져왔다면 resolve (PromiseResult*) 호출
+          resolve('기능 수행 후 얻은 데이터'); // 성공적으로 결과를 가져왔다면 resolve(PromiseResult*) 호출
         } else {
           reject(new Error('에러 발생!')); // 실패했다면 reject(PromiseResult**) 호출
         }
       }, 2000);
     });
-      
+
     // Consuming code 영역
     myPromise
-      .then((data) => { // 위에서 만든 프로미스가 정상적으로 잘 수행이 된다면(성공 시) then (그러면) data*를 받아와서 처리
-        console.log(data); 
+      .then((data) => { // 위에서 만든 프로미스가 정상적으로 잘 수행이 된다면(성공 시) then(그러면) data*를 받아와서 처리
+        console.log(data);
       })
-      .catch((err) => {  // 위에서 만든 프로미스가 문제가 발생한다면(실패 시) err**를 잡아서 처리 
-        console.log(err);
+      .catch((err) => { // 위에서 만든 프로미스가 문제가 발생한다면(실패 시) err**를 잡아서 처리
+        console.error(err);
       });
 
     // 정리:
     // 프로미스가 성공할 때의 값을 얻는 데 then()을 사용
-    // 프로미스가 실패할 때의 오류를 처리하는 데 catch()를 사용 
+    // 프로미스가 실패할 때의 오류를 처리하는 데 catch()를 사용
 
 
-    // ------------------- ^ 강사쌤 필기 가져오기(-) --------------------
+    // ------------------- ^ 강사쌤 필기 가져오기(+) --------------------
     
     // 프로미스 예제2:
     // fetch()를 사용한 JSONPlaceholder API 사용

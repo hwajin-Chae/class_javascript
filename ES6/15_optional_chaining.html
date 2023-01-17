@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script>
+    // ?. 옵셔널 체이닝 연산자 (ES2020)
+    // 예제1: 사용자를 나타내는 간단한 객체
+
+    const user1 = {
+      name: 'Goni',
+      age: 27,
+      work: {
+        title: 'sw developer',
+        location: 'Korea'
+      }
+    };
+
+    const user2 = {
+      name: 'hwajin',
+      age: 32,
+    }
+
+    // 위 예제에서 사용자의 직업명(title)에 접근하고 싶을 때
+    // work는 user 객체의 선택적 속성(user1에는 있지만, user2에는 없는)이므로 다음과 같이 작성
+
+    const users = [user1, user2];
+    let jobTitle;
+    for (const user of users) {
+      // jobTitle = user.work.title; // 에러 발생
+
+      // if 문 사용
+      // if (user.work) {
+      //   jobTitle = user.work.title;
+      //   console.log(jobTitle);
+      // }
+
+      // 삼항 연산자 사용
+      jobTitle = user.work ? user.work.title : '';
+      console.log(jobTitle);
+    }
+    // 즉, user 객체가 실제로 work 속성을 가지고 있는지 확인해야 함
+    // 접근하려는 속성이 깊게 중첩되어 있는 경우 코드가 복잡해짐
+    // 이 때 옵셔널 체이닝 연산자 ?.을 사용하면 코드가 간결해짐
+
+    for (const user of users) {
+      jobTitle = user.work?.title;
+      // work?.title; -> work 속성이 있으면, title에 접근하라
+      console.log(jobTitle);
+    }
+    // 코드를 보면 user 객체가 work 속성의 존재 여부를 묻는 것처럼 읽히고, 존재한다면 title 속성에 접근
+    // 객체에서 사용할 수 없는 속성에 도달하면(즉, nullish(null 또는 undefined) 이라면), 에러가 발생하는 대신에 undefined를 반환
+
+
+
+    // 예제2: 선택적 속성이 깊게 중첩된 객체
+    const elon = {
+      name: 'Elon Musk',
+      education: {
+        primary_school: { /* 초등학교 관련 데이터 */ },
+        middle_school: { /* 중학교 관련 데이터 */ },
+        high_school: { /* 고등학교 관련 데이터 */ },
+        university: {
+          name: 'University of Pennsylvania',
+          graduation: {
+            year: 1995
+          }
+        }
+      }
+    };
+
+    const mark = {
+      name: 'Mark Zuckerberg',
+      education: {
+        primary_school: { /* 초등학교 관련 데이터 */ },
+        middle_school: { /* 중학교 관련 데이터 */ },
+        high_school: { /* 고등학교 관련 데이터 */ },
+        university: {
+          name: 'Harvard University'
+        }
+      }
+    };
+
+    // (선택적 속성: university, graduation 일 때)
+    // 두 사람의 졸업 연도에 접근하고 싶다면..?
+    const ceos = [elon, mark];
+
+    // 옵셔널 체이닝 미사용
+    let graduationYear;
+    for (const ceo of ceos) {
+      if (ceo.education &&
+          ceo.education.university &&
+          ceo.education.university.graduation) {
+          graduationYear = ceo.education.university.graduation.year;
+      }
+    }
+
+    // 옵셔널 체이닝을 사용
+    for (const ceo of ceos) {
+      graduationYear = ceo.education?.university?.graduation?.year;
+      console.log(graduationYear);
+    }
+
+
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script>
+    // try catch와 에러 핸들링
+    // 에러가 발생하면 스크립트는 죽고(즉시 중단되고), 콘솔에 빨간 에러가 출력
+    // 자바스크립트가 에러 객체를 만들어서 던지는 것
+    // (중요) try catch 문법을 사용하면 스크립트가 죽는 걸 방지하고, 에러를 잡아서(catch) 더 합당한 처리를 할 수 있음
+
+    // 1. 기본 사용법 및 흐름
+    // 1) try 블록 안의 코드가 실행됨
+    // 2) 에러가 없다면, try 안의 마지막 줄까지 실행되고, catch 블록은 건너뜀
+    // 3) 에러가 발생하면, try 안의 코드의 실행이 중단되고, catch 블록으로 흐름이 넘어감
+    // 변수 err는 에러 메시지(설명)가 담긴 에러 객체를 전달 받음
+    // try {
+    //   // 에러가 발생 가능한 코드...
+    // } catch (err) {
+    //   // 에러 핸들링 코드
+    // }
+
+    // try catch 미사용시
+    // lalala; // 에러 발생
+    // console.log('다음 로직');  // 실행 안됨
+
+    // try catch 사용시
+    try {
+      console.log('try 블록 시작');
+
+      lalala;
+
+      console.log('try 블록 끝')
+    } catch (err) {
+      console.log('에러가 발생!');
+      console.error(err);
+    }
+    console.log('다음 로직 실행(d/t try catch문으로 에러를 핸들링)');
+    // 이렇게 try 블록 안에서 에러가 발생해도 catch에서 에러를 처리하기 때문에 스크립트는 죽지 않음
+
+    // 2. 에러 객체
+    // 에러가 발생하면 자바스크립트는 에러 상세내용이 담긴 객체를 생성
+    // catch 블록에 에러 객체를 인수로 전달
+
+    try {
+      lalala;  // 변수가 정의되지 않았음 -> 에러
+    } catch (err) {
+      console.log(err.name); // 에러 이름, 여기서는 ReferenceError
+      console.log(err.message); // 에러 상세 내용을 담은 메시지, 여기서는 lalala is not defined
+
+      // 에러 전체를 출력 시 에러 객체는 "name: message" 형태의 문자열로 변환됨
+      console.log(err);
+    }
+
+    // (참고) 에러 객체의 종류
+    // w3school.com/js/js_errors.asp
+
+
+    // 3. 선택적 catch 바인딩(할당) (ES2019)
+    // 에러에 대한 자세한 정보가 필요하지 않으면, catch에서 이를 생략 가능
+    try {
+      
+    } catch {  // <-- (err) 없이 쓸 수 있음
+      
+    }
+
+
+    // 4. try catch 활용 예
+    // JSON.parse(): 주로 서버 등에서 전달받은 JSON 데이터를 자바스크립트 객체로 변환할 때 사용
+    const json = '{"name":"Goni", "age":"30"}';  // 서버로부터 전달받은 데이터라 가정
+
+    const user = JSON.parse(json);  // 전달받은 문자열을 자바스크립트 객체로 변환
+
+    // 문자열로 전달받은 user가 속성을 가진 객체가 됨
+    console.log(user);
+    console.log(user.name);
+    console.log(user.age);
+
+    // 잘못된 형식의 json인 경우, JSON.parse()는 에러를 만들기 때문에 스크립트가 죽음
+    const badJson = '{ bad json }';
+    
+    try {
+      const user2 = JSON.parse(badJson); // 여기서 에러 발생
+      console.log(user2); // 이 코드는 실행 안됨
+      console.log(user2.name);
+    } catch (e) {
+      // 에러가 발생하면 제어 흐름이 catch 문으로 넘어옴
+      console.log('데이터에 에러가 있어 재요청을 시도하는 코드..');
+      console.error(e);
+      // 예제에서는 간단히 로그만 찍었지만
+      // 새로운 네트워크 요청 보내기, 사용자에게 다른 대안을 제시하기 등 구체적인 에러 핸들링을 할 수 있음
+    }
+
+    
+    // 5. 직접 에러를 만들어 던지기
+    const shortJson = '{ "age": 30 }'; // 불완전한 데이터(30은 숫자가 따옴표 없이)
+
+    try {
+      const user = JSON.parse(shortJson); // 에러 없음
+      console.log(user.name); // 이름 속성이 없음
+      // 아니면 네트워크 응답이 왔는데 nok 일 때(에러는 없지만 문제를 유발하는 상황일 때)
+    } catch (e) {
+      console.log('실행되지 않습니다.');
+    }
+
+    // 위와 같은 상황에서 에러는 없지만 에러 처리로 통합하고 싶을 때
+    // throw 연산자로 에러 던지기
+    // throw < error object >
+
+    // (참고) error object
+    // 자바스크립트는 Error, SyntaxError, ReferenceError, TypeError 등의 표준 에러 객체 생성자를 지원
+    // 이 생성자들을 이용해 에러 객체를 만들 수도 있음
+    let error = new Error('에러 메시지');
+    error = new SyntaxError('문법 에러 메시지');
+    error = new ReferenceError('참조 에러 메시지');
+    console.log(error.name);
+    console.log(error.message);
+
+    // throw 적용
+    try {
+      const user = JSON.parse(shortJson); // 에러 없음
+      if (!user.name) {
+        throw new SyntaxError('불완전한 데이터: 이름 없음(내가 적는 거..)'); // 에러를 만들어서 던짐
+      }
+      console.log(user.name); // 이름 속성이 없음
+    } catch (e) {
+      console.error(e);
+
+      // if (e instanceof SyntaxError) {
+
+      // }
+    }
+
+
+    // 6. finally {}
+    // 에러 발생 유무와 상관없이 무조건 실행
+    // 무조건 마무리 지어야 하는 작업 시 사용(예: 작업 내역 초기화, 리소스 연결 끊기 등)
+    try {
+      
+    } catch (error) {
+      
+    } finally {
+      // 항상 실행되는 코드
+    }
+
+    // finally 사용 시
+    try {
+      console.log('try 블록 시작');
+      if (confirm('에러를 만드시겠습니까?')) {
+        errorCode();
+      }
+    } catch (error) {
+      console.log('catch 블록 실행');
+    } finally {
+      console.log('finally 블록 실행');
+    }
+
+    // finally와 return
+    // finally는 try catch 문을 빠져나가는 어떤 경우에도 실행됨
+    // return을 사용해 빠져나가려는 경우도 마찬가지
+    function func() {
+      try {
+        return 1;
+      } catch (e) {
+        console.log(e);
+      } finally {
+        console.log('finally 블록 무조건 실행');
+      }
+    }
+    console.log(func());
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
