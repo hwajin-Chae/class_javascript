@@ -281,13 +281,6 @@
     document.write('<h4>특정 문자 1개 추출</h4>');
     document.write(text.charAt(16), '<br>'); // 지정된 인덱스(위치)에 있는 문자를 반환
 
-    document.write('<h4>문자열 검색</h4>');
-    document.write(text.indexOf('you'), '<br>'); // 문자열에서 값이 처음 나타나는 위치를 반환, 찾을수 없으면 -1
-    document.write(text.indexOf('you', 16), '<br>'); // 검색 시작 위치 지정
-    document.write(text.lastIndexOf('you'), '<br>'); // 문자열 끝에서부터 검색
-    document.write(text.lastIndexOf('you', 25), '<br>'); // 검색 시작 위치 지정
-    document.write(text.includes('you'), '<br>'); // 지정된 문자열이 포함된 경우 true, 그렇지 않으면 false
-    document.write(text.includes('you', 16), '<br>'); // 검색 시작 위치 지정
 
     document.write('<h4>문자열 추출</h4>');
     document.write(text.substr(21, 4), '<br>'); // 문자열의 일부(시작 인덱스부터 지정한 길이 만큼)를 추출
