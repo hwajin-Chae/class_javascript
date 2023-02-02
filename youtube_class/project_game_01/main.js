@@ -22,10 +22,34 @@ function Bullet() {
   this.x = 0;
   this.y = 0;
   this.init = function () {
-    this.x = space_shipX;
+    this.x = space_shipX + 22;
     this.y = space_shipY;
 
     bulletList.push(this);
+  };
+  this.update = function () {
+    this.y -= 7;
+  }
+}
+
+function generateRandomValue(min, max) {
+  let randomNum = Math.floor(Math.random()*(max-min+1))+min;
+  return randomNum;
+}
+
+let enemyList = [];
+
+function Enemy() {
+  this.x = 0;
+  this.y = 0;
+  this.init = function () {
+    this.y = 0;
+    this.x = generateRandomValue(0, canvas.width-64);
+    enemyList.push(this)
+  };
+
+  this.update = function () {
+    this.y += 3;
   }
 }
 
@@ -67,6 +91,13 @@ function createBullet() {
   console.log("새로운 총알 리스트", bulletList);
 }
 
+function createEnemy() {
+  const interval = setInterval(function () {
+    let e = new Enemy();
+    e.init()
+  }, 1000);
+}
+
 function update() {
   if (39 in keysDown) {
     space_shipX += 5;  // 우주선의 속도
@@ -83,14 +114,27 @@ function update() {
     space_shipX = canvas.width - 60;
   }
   // 우주선의 좌표값이 무한대로 업데이트 되는 게 아닌, 캔버스 안에서만 움직이게 하려면
+
+  // 총알의 y좌표 업데이트 하는 함수호출
+  for (let i = 0; i<bulletList.length; i++) {
+    bulletList[i].update();
+  }
+
+  for (let i = 0; i<enemyList.length; i++) {
+    enemyList[i].update();
+  }
 }
 
 function render() {
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
   ctx.drawImage(spaceshipImage, space_shipX, space_shipY);
   
-  for (let i = 0; i < bulletList.length; i++){
+  for (let i = 0; i < bulletList.length; i++) {
     ctx.drawImage(bulletImage, bulletList[i].x, bulletList[i].y);
+  }
+
+  for (let i = 0; i < enemyList.length; i++) {
+    ctx.drawImage(enemyImage, enemyList[i].x, enemyList[i].y);
   }
 }
 
@@ -102,7 +146,9 @@ function main() {
 
 loadImage();
 setupKeyboardListener();
+createEnemy();
 main();
+
 
 // 총알 만들기
 // 1. 스페이스바를 누르면 총알 발사
@@ -111,3 +157,10 @@ main();
 // 4. 모든 총알들은 x, y 좌표 값이 있어야 한다
 // 5. 총알 배열을 가지고 render 그려준다
 
+// 적군 만들기
+// 1. 귀엽다:>   x,y 좌표, init 초기화, update
+// 2. 위치가 랜덤으로 떨어진다
+// 3. 위에서 아래로 내려온다(y좌표 증가)
+// 4. 1초마다 하나씩 적군이 나온다
+// 5. 적군의 우주선이 바닥에 닿으면 게임오버
+// 6. 적군과 총알이 만나면 우주선이 사라진다 & 점수 1점 획득
