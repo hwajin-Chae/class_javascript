@@ -40,7 +40,7 @@ function loadImage() {
   bulletImage.src="images/bullet.png"
 
   enemyImage = new Image();
-  bulletImage.src="images/enemy.png"
+  enemyImage.src="images/enemy.png"
 
   gameOverImage = new Image();
   gameOverImage.src="gameover.png"
@@ -90,7 +90,7 @@ function render() {
   ctx.drawImage(spaceshipImage, space_shipX, space_shipY);
   
   for (let i = 0; i < bulletList.length; i++){
-    ctx.drawImage(bulletImage, bulletList[i].x, bulletList.y);
+    ctx.drawImage(bulletImage, bulletList[i].x, bulletList[i].y);
   }
 }
 
