@@ -12,6 +12,8 @@ document.body.appendChild(canvas);
 
 
 let backgroundImage, spaceshipImage, bulletImage, enemyImage, gameOverImage;
+let gameOver = false;  // true - 게임 끝남. false - 게임 안 끝남
+let score = 0;
 
 // 우주선 좌표
 let space_shipX = canvas.width/2-32
@@ -25,11 +27,27 @@ function Bullet() {
     this.x = space_shipX + 22;
     this.y = space_shipY;
 
+    this.alive = true; // true - 살아있는 총알, false - 죽은 총알
+
     bulletList.push(this);
   };
   this.update = function () {
     this.y -= 7;
-  }
+  };
+
+  this.checkHit = function () {
+    for (let i = 0; i < enemyList.length; i++) {
+      console.log("왜 안돼?", enemyList);
+
+
+      if(this.y <= enemyList[i].y && this.x >= enemyList[i].x && this.x <= enemyList[i].x + 40); {
+        // 총알이 죽게됨. 적군의 우주선이 없어짐, 점수 획득
+        score++;
+        this.alive = false; // 죽은 총알
+        enemyList.splice(i, 1);
+      }
+    }
+  };
 }
 
 function generateRandomValue(min, max) {
@@ -49,7 +67,11 @@ function Enemy() {
   };
 
   this.update = function () {
-    this.y += 3;
+    this.y += 2;  // 적군의 속도 조절
+    if(this.y >= canvas.height-64) {
+      gameOver = true;
+      console.log("gameover");
+    }
   }
 }
 
@@ -67,7 +89,7 @@ function loadImage() {
   enemyImage.src="images/enemy.png"
 
   gameOverImage = new Image();
-  gameOverImage.src="gameover.png"
+  gameOverImage.src="images/gameover.png"
 }
 
 let keysDown={};
@@ -116,8 +138,9 @@ function update() {
   // 우주선의 좌표값이 무한대로 업데이트 되는 게 아닌, 캔버스 안에서만 움직이게 하려면
 
   // 총알의 y좌표 업데이트 하는 함수호출
-  for (let i = 0; i<bulletList.length; i++) {
+  for (let i = 0; i < bulletList.length; i++) {
     bulletList[i].update();
+    bulletList[i].checkHit();
   }
 
   for (let i = 0; i<enemyList.length; i++) {
@@ -130,7 +153,9 @@ function render() {
   ctx.drawImage(spaceshipImage, space_shipX, space_shipY);
   
   for (let i = 0; i < bulletList.length; i++) {
-    ctx.drawImage(bulletImage, bulletList[i].x, bulletList[i].y);
+    if(bulletList[i].alive) {
+      ctx.drawImage(bulletImage, bulletList[i].x, bulletList[i].y);
+    }
   }
 
   for (let i = 0; i < enemyList.length; i++) {
@@ -139,9 +164,13 @@ function render() {
 }
 
 function main() {
-  update();  // 좌표 값을 업데이트 한 후
-  render();  // 그려주고   -> 미친듯이 반복하는 게 애니메이션 효과
-  requestAnimationFrame(main)
+  if(!gameOver) {
+    update();  // 좌표 값을 업데이트 한 후
+    render();  // 그려주고   -> 미친듯이 반복하는 게 애니메이션 효과
+    requestAnimationFrame(main)
+  } else {
+    ctx.drawImage(gameOverImage, 10, 100, 380, 380)
+  };
 }
 
 loadImage();
@@ -164,3 +193,10 @@ main();
 // 4. 1초마다 하나씩 적군이 나온다
 // 5. 적군의 우주선이 바닥에 닿으면 게임오버
 // 6. 적군과 총알이 만나면 우주선이 사라진다 & 점수 1점 획득
+
+// 적군이 죽는다
+// 1. 총알이 적군에게 닿는다
+// ---> 총알.y <= 적군.y
+// ---> 총알.x >= 적군.x  and  총알.x <= 적군.x + 적군의 너비
+// == 닿았다
+// === 총알이 죽게됨, 적군의 우주선이 없어짐, 점수 획득
