@@ -40,7 +40,7 @@ function Bullet() {
       console.log("왜 안돼?", enemyList);
 
 
-      if(this.y <= enemyList[i].y && this.x >= enemyList[i].x && this.x <= enemyList[i].x + 40); {
+      if(this.y <= enemyList[i].y && this.x >= enemyList[i].x && this.x <= enemyList[i].x + 40) {
         // 총알이 죽게됨. 적군의 우주선이 없어짐, 점수 획득
         score++;
         this.alive = false; // 죽은 총알
@@ -200,3 +200,38 @@ main();
 // ---> 총알.x >= 적군.x  and  총알.x <= 적군.x + 적군의 너비
 // == 닿았다
 // === 총알이 죽게됨, 적군의 우주선이 없어짐, 점수 획득
+
+
+
+// 사용된 JS 개념
+// 캔버스: 웹에서 드로잉해야될때, 캔버스 라이브러리 많이 씀
+// DOM API(엘리먼트 만들어서 특정 위치에 붙이기)
+// 재귀함수
+// 객체 생성자 함수와 this의 사용
+// 사용자 정의 객체 생성
+// 키보드 이벤트와 키코드 => 키
+// 지정된 범위에서 랜덤값 만들기
+
+
+
+
+
+// ***** 강사쌤 분석 및 총알 수정 *****
+
+
+// 바꿀점
+// 세미콜론 습관...
+// 우주선 정중앙 안맞음 let space_shipX = canvas.width/2-32 <-- -30임
+// keyCode 지양할것 key로 바꾸셈, deprecated라는것은 항상 대체제가 있음
+
+// if(this.y <= enemyList[i].y && this.x >= enemyList[i].x && this.x <= enemyList[i].x + 40); {
+// 세미콜론 제거
+// 범위 +40이 아님... 에너미의 가로폭 만큼 더해줘야 함
+
+// 총알의 y좌표 업데이트 하는 함수 호출
+// for (let i = 0; i < bulletList.length; i++) {
+// if (bulletList[i].alive) {
+// bulletList[i].update();
+// bulletList[i].checkHit();
+// }
+// }
