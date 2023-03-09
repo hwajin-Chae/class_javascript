@@ -47,6 +47,24 @@
     const { facebook } = person3.links.social;
     console.log(facebook);
 
+
+
+    // const action = {
+    //   type: 'action/name',
+    //   payload: {
+    //     id: '1',
+    //     title: '메인 화면 구성하기',
+    //     content: '메인 이미지와 아이템 목록 만들기',
+    //     done: true
+    //   }
+    // };
+
+    const action.payload = [ '1', '메인 화면 구성하기', '메인 이미지와 아이템 목록 만들기' ];
+    const [ id, title, content, done ] = action.payload;
+    console.log(id, title, content, done);
+
+
+
     
     // 변수의 이름과 객체의 속성 이름을 동일하게 지정하지 않고
     // 변수명을 지정하여 바꾸고 싶다면..?

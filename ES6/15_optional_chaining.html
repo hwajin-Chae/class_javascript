@@ -57,50 +57,69 @@
 
 
     // 예제2: 선택적 속성이 깊게 중첩된 객체
-    const elon = {
-      name: 'Elon Musk',
-      education: {
-        primary_school: { /* 초등학교 관련 데이터 */ },
-        middle_school: { /* 중학교 관련 데이터 */ },
-        high_school: { /* 고등학교 관련 데이터 */ },
-        university: {
-          name: 'University of Pennsylvania',
-          graduation: {
-            year: 1995
-          }
+    // const elon = {
+    //   name: 'Elon Musk',
+    //   education: {
+    //     primary_school: { /* 초등학교 관련 데이터 */ },
+    //     middle_school: { /* 중학교 관련 데이터 */ },
+    //     high_school: { /* 고등학교 관련 데이터 */ },
+    //     university: {
+    //       name: 'University of Pennsylvania',
+    //       graduation: {
+    //         year: 1995
+    //       }
+    //     }
+    //   }
+    // };
+
+    // const mark = {
+    //   name: 'Mark Zuckerberg',
+    //   education: {
+    //     primary_school: { /* 초등학교 관련 데이터 */ },
+    //     middle_school: { /* 중학교 관련 데이터 */ },
+    //     high_school: { /* 고등학교 관련 데이터 */ },
+    //     university: {
+    //       name: 'Harvard University'
+    //     }
+    //   }
+    // };
+
+    // // (선택적 속성: university, graduation 일 때)
+    // // 두 사람의 졸업 연도에 접근하고 싶다면..?
+    // const ceos = [elon, mark];
+
+    // // 옵셔널 체이닝 미사용
+    // let graduationYear;
+    // for (const ceo of ceos) {
+    //   if (ceo.education &&
+    //       ceo.education.university &&
+    //       ceo.education.university.graduation) {
+    //       graduationYear = ceo.education.university.graduation.year;
+    //   }
+    // }
+
+    // // 옵셔널 체이닝을 사용
+    // for (const ceo of ceos) {
+    //   graduationYear = ceo.education?.university?.graduation?.year;
+    //   console.log(graduationYear);
+    // }
+
+
+    const person = {
+      name: 'JH Kim',
+      job: 'teacher',
+      education: { // optional
+        high_school: { /* ... */ }, // optional
+        university: { // optional
+          name: 'Incheon Hawaii',
+          major: 'ICE',
         }
       }
     };
 
-    const mark = {
-      name: 'Mark Zuckerberg',
-      education: {
-        primary_school: { /* 초등학교 관련 데이터 */ },
-        middle_school: { /* 중학교 관련 데이터 */ },
-        high_school: { /* 고등학교 관련 데이터 */ },
-        university: {
-          name: 'Harvard University'
-        }
-      }
-    };
-
-    // (선택적 속성: university, graduation 일 때)
-    // 두 사람의 졸업 연도에 접근하고 싶다면..?
-    const ceos = [elon, mark];
-
-    // 옵셔널 체이닝 미사용
-    let graduationYear;
-    for (const ceo of ceos) {
-      if (ceo.education &&
-          ceo.education.university &&
-          ceo.education.university.graduation) {
-          graduationYear = ceo.education.university.graduation.year;
-      }
-    }
-
-    // 옵셔널 체이닝을 사용
-    for (const ceo of ceos) {
-      graduationYear = ceo.education?.university?.graduation?.year;
+    const persons = [ person ];
+    for (const person of persons) {
+      graduationYear = person.education?.university?.major;
       console.log(graduationYear);
     }
 

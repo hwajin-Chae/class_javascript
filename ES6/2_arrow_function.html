@@ -64,6 +64,9 @@
 
 
 
+
+
+
     // Quiz: 화살표 함수로 변경하기
     // ---------- Quiz1 ---------- 
     // function add(num1,num2) {
@@ -72,6 +75,14 @@
 
     // ->
     const add2 = (num1, num2) => num1 + num2;
+    console.log(add2);
+
+
+    // function hello(val) {
+    //   return 'Hello ' + val;
+    // }
+    const hello2 = (val) => `hello ${val}`;
+    console.log(hello2);
 
 
     // ---------- Quiz2 ---------- 
@@ -98,19 +109,32 @@
 
 
     // ---------- Quiz3 ---------- 
-    function addMember(name) {
-      return {
-        no: 0,
-        name: name
-      };
-    }
-    const member = addMember('김재');
-    console.log(member);
+    // function addMember(name) {
+    //   return {
+    //     no: 0,
+    //     name: name
+    //   };
+    // }
+    // const member = addMember('김재');
+    // console.log(member);
 
-    // ->
-    const addMember2 = name => ({ no: 0, name: name});
-    const member2 = addMember2('김재');
-    console.log(member2);
+    // // ->
+    // const addMember2 = name => ({ no: 0, name: name});
+    // const member2 = addMember2('김재');
+    // console.log(member2);
+
+
+    // function getFavoriteMovie() {
+    //   return {
+    //     name: 'Inception',
+    //     year: '2010',
+    //     director: 'Nolan',
+    //     rating: 9.6
+    //   };
+    // }
+
+    const getFavoriteMovie = () => ({ name: 'Inception', year: '2010', director: 'Nolan', rating: 9.6 });
+    console.log(getFavoriteMovie);
 
 
     // 화살표 함수와 this 키워드
